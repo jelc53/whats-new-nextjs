@@ -12,9 +12,9 @@ export default function RootLayout({
   const header = (
     <header>
       <div>
-        <h1 class="heading">
-          <span class="small">Welcome to our humble </span>
-          wiki for <span class="no-fill">publications</span>
+        <h1>
+          <span>Welcome to our humble </span>
+          wiki for <span>publications</span>
         </h1>
       </div>
     </header>

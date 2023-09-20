@@ -4,7 +4,7 @@ import { PostMetadata } from "./PostMetadata";
 const PostPreview = (props: PostMetadata) => {
   return (
     <div>
-        <Link href={`/sketches/${props.slug}`}>
+        <Link href={`/posts/${props.slug}`}>
             <h2>{props.title}</h2>
         </Link>
         <p>{props.author}</p>

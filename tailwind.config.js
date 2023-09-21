@@ -8,6 +8,9 @@ module.exports = {
   theme: {
     extend: {
       screens: { sm: "480px", md: "768px", lg: "976px", xl: "1440pd" },
+      backgroundImage: {
+        'bayarea-skyline': "url('../public/imgs/bayarea_skyline.jpg')",
+      },
       animation: {
         fadeIn: "fadeIn 1.5s",
         bounce:
@@ -35,11 +38,6 @@ module.exports = {
           from: { transform: "translateY(10px)" },
           to: { transform: "translateY(0)" },
         },
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
   },

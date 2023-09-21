@@ -1,20 +1,9 @@
-import getPostMetadata from "@/components/getPostMetadata";
-import PostPreview from "@/components/PostPreview";
+import HeroSection from "@/components/HeroSection"
 
-const HomePage = () => {
-  const postMetadata = getPostMetadata();
-  const postPreviews = postMetadata.map((post) => (
-    <PostPreview 
-      key={post.slug} 
-      title={post.title}
-      author={post.author}
-      date={post.date}
-      slug={post.slug}
-      // {...post} 
-    />
-  ));
-
-  return <div>{postPreviews}</div>;
+export default function Home() {
+  return (
+    <main className="mx-auto w-full my-18 md:my-20 lg:my-20 px-0 md:px-4 lg:px-4">
+      <HeroSection />
+    </main>
+  );
 };
-
-export default HomePage

@@ -1,8 +1,9 @@
 ---
 title: Example Sketch 2
-author: "Leqi Zeng"
+author: "Leqi Zeng, 15th Sept 2023"
 date: "2023-09-15"
-hero_image: /imgs/neuromancer_headset.png
+bannerImage: /imgs/neuromancer_headset.png
+description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 ---
 
 This is an example *sketch* written in markdown.

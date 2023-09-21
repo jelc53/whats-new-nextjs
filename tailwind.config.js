@@ -41,6 +41,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-text-fill-stroke'), // no options to configure
+  ],
 }
 

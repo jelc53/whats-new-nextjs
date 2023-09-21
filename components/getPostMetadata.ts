@@ -1,3 +1,4 @@
+import React from "react"
 import fs from "fs";
 import matter from "gray-matter";
 import { PostMetadata } from "../components/PostMetadata";
@@ -11,11 +12,14 @@ const getPostMetadata = (): PostMetadata[] => {
     const posts = markdownPosts.map((fileName) => {
       const fileContents = fs.readFileSync(`${folder}${fileName}`, "utf8");
       const matterResult = matter(fileContents);
+      // const options = { year: "numeric", month: "long", day: "numeric" };
+
       return {
         title: matterResult.data.title,
         author: matterResult.data.author,
         date: matterResult.data.date,
-        // hero_image: matterResult.data.hero_image,
+        description: matterResult.data.description,
+        bannerImage: matterResult.data.bannerImage,
         slug: fileName.replace(".md", ""),
       };
     });

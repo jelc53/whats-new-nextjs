@@ -26,6 +26,7 @@
     "@types/react-scroll": "^1.8.7",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.29",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-text-fill-stroke": "^1.1.2"
   }
 }

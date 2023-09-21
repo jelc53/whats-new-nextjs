@@ -31,7 +31,7 @@ export default function Navbar() {
     const [navbar, setNavbar] = useState(false)
 
     return (
-        <header className="w-full mx-auto px-10 top-0 z-50 sm:px-20 text-slate-800 bg-white shadow fixed dark:bg-stone-900 dark:text-slate-100 dark:border-b dark:border-stone-600">
+        <header className="font-mono w-full mx-auto px-10 top-0 z-50 sm:px-10 text-slate-800 bg-white shadow fixed dark:bg-stone-900 dark:text-slate-100 dark:border-b dark:border-stone-600">
             <div className="justify-between md:items-center md:flex">
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-4 md:block">

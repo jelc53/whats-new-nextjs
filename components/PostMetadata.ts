@@ -2,6 +2,7 @@ export interface PostMetadata {
     title: string;
     author: string;
     date: string;
-    // hero_image: 
+    bannerImage: any; 
+    description: string;
     slug: string;
 }

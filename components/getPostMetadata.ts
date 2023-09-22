@@ -15,9 +15,13 @@ const getPostMetadata = (): PostMetadata[] => {
       // const options = { year: "numeric", month: "long", day: "numeric" };
 
       return {
-        title: matterResult.data.title,
-        author: matterResult.data.author,
-        date: matterResult.data.date,
+        sketchTitle: matterResult.data.sketchTitle,
+        sketchAuthor: matterResult.data.sketchAuthor,
+        sketchPublishDate: matterResult.data.sketchPublishDate,
+        articleTitle: matterResult.data.articleTitle,
+        articleAuthor: matterResult.data.articleAuthor,
+        articlePublishDate: matterResult.data.articlePublishDate,
+        category: matterResult.data.category,
         description: matterResult.data.description,
         bannerImage: matterResult.data.bannerImage,
         slug: fileName.replace(".md", ""),

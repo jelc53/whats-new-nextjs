@@ -9,11 +9,12 @@ const FeaturedSection = () => {
   const postPreviews = postMetadata.map((post) => (
     <PostPreview 
       key={post.slug} 
-      title={post.title}
+      sketchTitle={post.sketchTitle}
+      sketchAuthor={post.sketchAuthor}
+      sketchPublishDate={post.sketchPublishDate}
+      category={post.category}
       description={post.description}
       bannerImage={post.bannerImage}
-      author={post.author}
-      date={post.date}
       slug={post.slug}
       // {...post} 
     />
@@ -22,7 +23,7 @@ const FeaturedSection = () => {
     return (
         <section id="featured">
             <div>
-                <h1 className="text-xl font-mono font-bold pt-4 px-2">Featured sketches</h1>
+                <h1 className="text-xl font-mono light:text-slate-800 font-bold pt-4 px-2">Featured sketches</h1>
                 {/* <br /> */}
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-4 md:p-0">
                     {postPreviews}

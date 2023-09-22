@@ -42,7 +42,7 @@ module.exports = {
     },
   },
   plugins: [
-    require('tailwindcss-text-fill-stroke'), // no options to configure
+    require('@tailwindcss/typography'), // no options to configure
   ],
 }
 

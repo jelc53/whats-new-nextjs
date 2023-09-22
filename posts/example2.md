@@ -1,11 +1,41 @@
 ---
-title: Example Sketch 2
-author: "Leqi Zeng, 15th Sept 2023"
-date: "2023-09-15"
+sketchTitle: Example Sketch 2
+sketchAuthor: "Leqi Zeng, 15th Sept 2023"
+sketchPublishDate: "2023-09-15"
+articleTitle: Designing Data-Intensive Applications
+articleAuthor: Martin Kleppmann
+articlePublishDate: "2017-01-01"
+category: Deep Learning
 bannerImage: /imgs/neuromancer_headset.png
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 ---
 
+---
+Publication: Designing Data-Intensive Applications
+Author(s): Martin Kleppmann
+Date: January, 2017
+---
+
 This is an example *sketch* written in markdown.
 
-![image caption](/imgs/placeholder.png)
+Here is a function,
+$$
+f(x)=
+\begin{cases}
+1/d_{ij} & \quad \text{when $d_{ij} \leq 160$}\\ 
+0 & \quad \text{otherwise}
+\end{cases}
+$$
+
+Here is a matrix,
+$$ 
+M =
+\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}
+$$

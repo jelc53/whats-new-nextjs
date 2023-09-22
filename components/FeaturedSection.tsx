@@ -12,6 +12,9 @@ const FeaturedSection = () => {
       sketchTitle={post.sketchTitle}
       sketchAuthor={post.sketchAuthor}
       sketchPublishDate={post.sketchPublishDate}
+      articleTitle={post.articleTitle}
+      articleAuthor={post.articleAuthor}
+      articlePublishDate={post.articlePublishDate}
       category={post.category}
       description={post.description}
       bannerImage={post.bannerImage}

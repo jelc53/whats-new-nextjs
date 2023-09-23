@@ -37,7 +37,7 @@ export default function Navbar() {
                     <div className="flex items-center justify-between py-3 md:py-4 md:block">
                         <Link to="home">
                             <div className="container flex items-center space-x-2">
-                                <h2 className="text-2xl font-bold">What's New?</h2>
+                                <h2 className="text-2xl lg:text-3xl font-bold">What's New?</h2>
                             </div>
                         </Link>
 
@@ -83,7 +83,7 @@ export default function Navbar() {
                             navbar ? "block" : "hidden"
                         }`}
                     >
-                        <div className="items-center justify-center md:flex md:space-x-10 space-y-8 md:space-y-0">
+                        <div className="lg:text-xl items-center justify-center md:flex md:space-x-10 space-y-8 md:space-y-0">
                             {NAV_ITEMS.map((item, idx) => {
                                 return (
                                     <Link

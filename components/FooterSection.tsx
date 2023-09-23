@@ -4,9 +4,9 @@ import React from "react"
 const FooterSection = () => {
     return (
         <footer>
-          <div className="w-full flex flex-row text-center md:text-left px-6 py-2 mx-auto font-mono bg-white dark:bg-stone-900 dark:text-slate-100">
+          <div className="flex flex-row w-full px-8 py-2 mx-auto font-mono text-center bg-white md:text-left dark:bg-stone-900 dark:text-slate-100">
             {/* <br /> */}
-            <h3>© 2023 Developed by Stanford ICME Alumni</h3>
+            <h3 className="lg:text-lg">© 2023 Developed by Stanford ICME Alumni</h3>
           </div>
         </footer>
     )

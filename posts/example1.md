@@ -1,6 +1,6 @@
 ---
 sketchTitle: Example Sketch 1
-sketchAuthor: Julian Cooper, 13th Sept 2023
+sketchAuthor: Julian Cooper, 14th Sept 2023
 sketchPublishDate: "2023-09-13"
 articleTitle: Designing Data-Intensive Applications
 articleAuthor: Martin Kleppmann

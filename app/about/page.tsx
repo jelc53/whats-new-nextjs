@@ -1,3 +1,4 @@
+// deprecated: currently use react-scroll
 import AboutSection from "@/components/AboutSection";
 
 export default function About() {

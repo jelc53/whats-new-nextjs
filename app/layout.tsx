@@ -12,7 +12,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className="dark:bg-stone-900">
+      <body className="flex flex-col justify-between h-screen dark:bg-stone-900">
         <ThemeProvider enableSystem={true} attribute="class">
           <Navbar />
           {children}

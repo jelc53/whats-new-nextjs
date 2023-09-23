@@ -5,28 +5,39 @@ const AboutSection = () => {
     return (
         <section id="about">
             <div className="pt-10 md:pt-12">
-                <h1 className="pt-2 font-mono text-2xl font-bold lg:text-3xl light:text-slate-800">About</h1>
+                <h1 className="pt-2 font-mono text-2xl font-bold text-center light:text-slate-800 lg:text-left lg:text-3xl">
+                    About us
+                    <hr className="lg:h-0 w-1/5 mx-auto mt-2 bg-gray-300 border-0 rounded h-[1px]"></hr>
+                </h1>
                 <div className="grid justify-center grid-cols-1 gap-10 py-4 align-top lg:gap-20 lg: md:grid-cols-2 lg:grid-cols-3 item-stretch">
                     <div className="">
-                        <h1 className="justify-center font-mono text-2xl text-center lg:text-3xl">Who we are!</h1>
+                        <h1 className="justify-center font-mono text-2xl text-center lg:text-3xl">Who we are.</h1>
+                        <div>
                         <p className="pt-4 text-lg lg:text-xl">
                             <span className="text-fuchsia-700 dark:text-fuchsia-300">What's New </span>
                             is a wiki for short-form, visual summaries ("sketches") of academic publications.
-                            <br /> 
-                            <br />
-                            The project was started by a group of Stanford ICME students and alumni in 2023.  
+                        </p> 
+                        <br />
+                        <p>
+                            The project was started by a group of Stanford ICME students and alumni in 2023.
+                            <span className="text-gray-500"> [insert more text here insert more text here insert more text here]</span>
+                        </p>
+                        <br />
+                        <p>
                             While studying, we had our fingers on the pulse of the rapidly changing statistics and applied math fields of study.
                             However, as we leave academia or begin to specialize, we will naturally lose some of that pulse. 
                             <span className="text-fuchsia-700 dark:text-fuchsia-300"> What's New </span> is our attempt to stay connected and up-to-date.                                    
                         </p>
+                        </div>
+
                     </div>
                     <div className="">
                         <h1 className="justify-center font-mono text-2xl text-center lg:text-3xl">How to contribute?</h1>
                         <p className="pt-4 text-lg lg:text-xl">
                             To be sustainable, we need to balance producing a great product and process 
                             with not being overly burdensome to maintain.
-                        <br />
-                        <br />
+                        </p>
+                        <p>
                             Two primary ways to contribute:
                                 <ul className="pl-6 list-disc list-inside">
                                     <br />

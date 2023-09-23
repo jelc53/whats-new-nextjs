@@ -10,6 +10,7 @@ module.exports = {
       screens: { sm: "480px", md: "768px", lg: "976px", xl: "1440pd" },
       backgroundImage: {
         'bayarea-skyline': "url('../public/imgs/bayarea_skyline.jpg')",
+        'bayarea-skyline-crop': "url('../public/imgs/bayarea_skyline_cropped.jpg')",
       },
       animation: {
         fadeIn: "fadeIn 1.5s",

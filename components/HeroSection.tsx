@@ -7,16 +7,16 @@ const HeroSection = () => {
     return (
         <section id="home">
             <div 
-                className="bg-bayarea-skyline h-[600px] lg:h-[965px] relative overflow-hidden rounded-lg bg-cover bg-no-repeat text-center"
+                className="bg-bayarea-skyline-crop h-[600px] lg:h-[965px] relative overflow-hidden rounded-lg bg-cover bg-no-repeat text-center"
             >
                 <div
-                    className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed"
+                    className="absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-hidden bg-fixed"
                     style={{backgroundColor: 'stone-100'}}
                 >
-                    <div className="flex h-full items-center justify-center">
-                        <div className="text-fuchsia-800 pb-24">
-                            <h4 className="mb-3 lg:text-6xl md:text-4xl text-2xl font-semibold">Welcome to our humble</h4>
-                            <h2 className="mb-12 lg:mb-16 lg:text-8xl md:text-6xl text-4xl font-semibold">wiki for <span className="text-purple-800 font-extrabold italic">publications</span></h2>
+                    <div className="flex items-center justify-center h-full">
+                        <div className="pb-24 text-fuchsia-800">
+                            <h4 className="mb-3 text-2xl font-semibold lg:text-6xl md:text-4xl">Welcome to our humble</h4>
+                            <h2 className="mb-12 text-4xl font-semibold lg:mb-16 lg:text-8xl md:text-6xl">wiki for <span className="italic font-extrabold text-purple-800">publications</span></h2>
                             
                             {/* <button
                             type="button"
@@ -29,13 +29,13 @@ const HeroSection = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-row justify-center absolute inset-x-0 bottom-14">
+                <div className="absolute inset-x-0 flex flex-row justify-center bottom-14">
                     <Link
                         to="featured"
                         activeClass="active"
                         spy={true}
                         smooth={true}
-                        offset={-100}
+                        offset={-60}
                         duration={500}
                     >
                         <HiArrowDown size={40} color="white" className="animate-bounce" />

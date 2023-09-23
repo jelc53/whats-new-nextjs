@@ -41,6 +41,9 @@ const AboutSection = () => {
                         <p className="pt-4 text-lg lg:text-xl">
                         This is very much an experiment and we are always open to new ideas! 
                         Please send us a note if you'd like to get involved in a different way.
+                        <br />
+                        <br />
+                        <span className="text-gray-500">[WIP: WEB3 CONTACT FORM]</span>
                         </p>
                         {/* <ContactForm /> */}
                     </div>

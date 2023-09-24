@@ -27,7 +27,7 @@ const FeaturedSection = () => {
         <section id="featured">
             <div className="mb-auto">
                 <h1 className="pt-6 pb-0 font-mono text-2xl font-bold text-center lg:text-3xl light:text-slate-800 lg:text-left md:pb-2">
-                    Featured sketches
+                    Featured sketches <span className="hidden lg:inline-block">--></span>
                     <hr className="lg:h-0 w-1/5 mx-auto mt-2 bg-gray-300 border-0 rounded h-[1px]"></hr>
                 </h1>
                 {/* <br /> */}

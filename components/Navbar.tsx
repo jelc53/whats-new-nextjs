@@ -36,11 +36,11 @@ export default function Navbar() {
             <div className="justify-between md:items-center md:flex">
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-4 md:block">
-                        <_Link to="home">
+                        <Link href="/">
                             <div className="container flex items-center space-x-2">
                                 <h2 className="text-2xl font-bold lg:text-3xl">What's New?</h2>
                             </div>
-                        </_Link>
+                        </Link>
 
                         {currentTheme === "dark" ? (
                             <div className="flex justify-between space-x-5 space-y-0 md:hidden md:space-y-0">

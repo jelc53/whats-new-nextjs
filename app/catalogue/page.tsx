@@ -1,4 +1,4 @@
-// wip: currently use react-scroll
+// deprecated: currently use react-scroll
 import HeroSection from "@/components/HeroSection"
 import FeaturedSection from "@/components/FeaturedSection";
 

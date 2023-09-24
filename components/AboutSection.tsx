@@ -17,12 +17,14 @@ const AboutSection = () => {
                             <p className="pt-4 text-lg lg:text-xl">
                                 <span className="text-fuchsia-700 dark:text-fuchsia-300">What's New </span>
                                 is a wiki for short-form, visual summaries ("sketches") of academic publications.
-                            <br /> 
+                            </p> 
                             <br />
+                            <p>
                                 The project was started by a group of students with too much time on their hands in 2023 
                                 and a shared love of purple color schemes*. 
+                            </p>
                             <br />
-                            <br />
+                            <p>
                                 While studying, we felt (maybe for the first time) that we had our finger on the pulse of this wierd, wonderful and rapidly changing world of applied math.
                                 We would read a new publication and know straight away if it was game-changing or just noise.
                                 However, as we leave academia or begin to specialize, we will naturally lose some of that pulse. 
@@ -40,17 +42,15 @@ const AboutSection = () => {
                         <h1 className="justify-center font-mono text-2xl text-center lg:text-3xl">How to contribute?</h1>
                         <p className="pt-4 text-lg lg:text-xl">
                             To be sustainable, we need to balance producing a great product with not being overly burdensome for part-time contributors to maintain. 
-                            <br />
-                            <br />
-                            We have two types of contributors:
-                            <br />
-                            <br />
-                                <ul className="pl-6 list-disc list-inside">
-                                    <li><span className="text-indigo-600 dark:text-indigo-300"><span className="font-bold">"Academic":</span> Identify the 3-5 publications that actually matter from your field of study!</span> We might also ask academics to review draft sketches. This is most likely a job for Current PhD students or PostDocs actively involved in research.</li>
-                                    <br />
-                                    <li><span className="text-teal-600 dark:text-teal-300"><span className="font-bold">"Workerbee":</span> Write 1-2 sketches that beautifully summarize the core ideas from selected publications!</span> This is most likely a job for graduated students working in industry. The challenge is to produce content that is easily digestable (think visual) for other members.</li>
-                                </ul>
                         </p>
+                        <br />
+                        <p> We have two types of contributors: </p>
+                        <br />
+                        <ul className="pl-6 list-disc list-inside">
+                            <li><span className="text-indigo-600 dark:text-indigo-300"><span className="font-bold">"Academic":</span> Identify the 3-5 publications that actually matter from your field of study!</span> We might also ask academics to review draft sketches. This is most likely a job for Current PhD students or PostDocs actively involved in research.</li>
+                            <br />
+                            <li><span className="text-teal-600 dark:text-teal-300"><span className="font-bold">"Workerbee":</span> Write 1-2 sketches that beautifully summarize the core ideas from selected publications!</span> This is most likely a job for graduated students working in industry. The challenge is to produce content that is easily digestable (think visual) for other members.</li>
+                        </ul>
                     </div>
                     <div className="p-4 border rounded-lg">
                         <h1 className="justify-center font-mono text-2xl text-center lg:text-3xl">Get in touch!</h1>

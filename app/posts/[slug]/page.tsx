@@ -23,7 +23,7 @@ const SketchPage = (props: any) => {
   const slug = props.params.slug;
   const post = getPostContent(slug);
     return (
-      <div className="mt-20 mx-10">
+      <div className="flex flex-col items-center justify-center mx-10 mt-20 lg:mx-[10vw]">
         <div className="text-center">
           <Image 
               width={0}
@@ -32,12 +32,13 @@ const SketchPage = (props: any) => {
               alt={post.data.sketchTitle}
               src={`${post.data.bannerImage}`}
               style={{ width: '100%', height: 'auto' }} // optional
+              className="rounded-lg"
             />
-            <h1 className="text-2xl lg:text-4xl pt-6 lg:pt-10 pb-2 text-extrabold text-fuchsia-800 dark:text-fuchsia-300">{post.data.sketchTitle}</h1>
-            <p className="text-stone-400 dark:text-stone-300 lg:text-2xl">{post.data.sketchAuthor}</p>
+            <h1 className="pt-6 pb-2 text-2xl md:text-3xl lg:text-4xl lg:pt-10 text-extrabold text-fuchsia-800 dark:text-fuchsia-300">{post.data.sketchTitle}</h1>
+            <p className="text-stone-400 dark:text-stone-300 md:text-lg lg:text-2xl">{post.data.sketchAuthor}</p>
         </div>
         
-        <article className="prose lg:prose-xl">
+        <article className="prose md:prose-lg lg:prose-xl">
           <Markdown>{post.content}</Markdown>
         </article>
       </div>

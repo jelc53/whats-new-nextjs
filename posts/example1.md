@@ -11,10 +11,11 @@ description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ei
 ---
 
 ---
-Publication: Designing Data-Intensive Applications
-Author(s): Martin Kleppmann
-Date: January, 2017
----
+
+##### Publication: Designing Data-Intensive Applications
+##### Author(s): Martin Kleppmann
+##### Date: January, 2017
+___
 
 Motivation: Building data systems that are reliable, scalable and maintainable
 

@@ -41,40 +41,31 @@ export default function Navbar() {
                                 <h2 className="text-2xl font-bold lg:text-3xl">What's New?</h2>
                             </div>
                         </Link>
-
-                        {currentTheme === "dark" ? (
-                            <div className="flex justify-between space-x-5 space-y-0 md:hidden md:space-y-0">
-                                <button 
-                                    onClick={() => setNavbar(!navbar)}
-                                    className="p-2 bg-stone-300 rounded-xl"
-                                    // className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
-                                >
-                                    {navbar ? <IoMdClose size={25} color="black"/> : <IoMdMenu size={25} color="black" />}
-                                </button>
+  
+                        <div className="flex justify-between space-x-5 space-y-0 md:hidden md:space-y-0">
+                            <button 
+                                onClick={() => setNavbar(!navbar)}
+                                className="p-2 bg-stone-300 dark:bg-slate-100 rounded-xl"
+                                // className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                            >
+                                {navbar ? <IoMdClose size={25} color="black"/> : <IoMdMenu size={25} color="black" />}
+                            </button>
+                            {currentTheme === "dark" ? (
                                 <button 
                                     onClick={() => setTheme("light")}
                                     className="p-2 bg-stone-300 rounded-xl"
                                 >
                                     <RiSunLine size={25} color="black" />
                                 </button>
-                            </div>
-                        ) : (
-                            <div className="flex justify-between space-x-5 space-y-0 md:hidden md:space-y-0">
-                                <button 
-                                    onClick={() => setNavbar(!navbar)}
-                                    className="p-2 bg-slate-100 rounded-xl"
-                                    // className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
-                                >
-                                    {navbar ? <IoMdClose size={25} /> : <IoMdMenu size={25} />}
-                                </button>
+                            ) : (
                                 <button
                                     onClick={() => setTheme("dark")}
                                     className="p-2 bg-slate-100 rounded-xl"
                                 >
                                     <RiMoonFill size={25} />
                                 </button>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -84,7 +75,7 @@ export default function Navbar() {
                             navbar ? "block" : "hidden"
                         }`}
                     >
-                        <div className="items-center justify-center space-y-8 lg:text-xl md:flex md:space-x-10 md:space-y-0">
+                        <div className="items-center justify-center pb-2 space-y-8 md:pb-0 lg:text-xl md:flex md:space-x-10 md:space-y-0">
                             {NAV_ITEMS.map((item, idx) => {
                                 return (
                                     <Link
@@ -98,7 +89,7 @@ export default function Navbar() {
                                         // smooth={true}
                                         // offset={-100}
                                         // duration={500}
-                                        onClick={() => setNavbar(!navbar)}
+                                        // onClick={() => setNavbar(!navbar)}
                                         >{item.label}
                                     </Link>
                                 )
@@ -119,23 +110,7 @@ export default function Navbar() {
                                         <RiMoonFill size={20} />
                                     </button>
                                 )
-                            ) : (
-                                currentTheme === "dark" ? (
-                                    <button 
-                                        onClick={() => setTheme("light")}
-                                        className="p-2 bg-stone-200 rounded-xl"
-                                    >
-                                        <RiSunLine size={20} color="black" />
-                                    </button>
-                                ) : (
-                                    <button
-                                        onClick={() => setTheme("dark")}
-                                        className="p-2 bg-slate-100 rounded-xl"
-                                    >
-                                        <RiMoonFill size={20} />
-                                    </button>
-                                )
-                            )}
+                            ) : ("")}
                         </div>
                     </div>
                 </div>

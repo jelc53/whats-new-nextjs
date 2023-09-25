@@ -19,6 +19,7 @@ export default function ContactForm() {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+        "Access-Control-Allow-Headers": '*',
 			},
 			body: JSON.stringify(data),
 		});

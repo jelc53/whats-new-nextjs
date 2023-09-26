@@ -11,8 +11,8 @@ export default async function ContactAPI(req, res) {
         port: 465,
         secure: true,
         auth: {
-            user: process.env.USER,
-            pass: process.env.PASSWORD,
+            user: USER,
+            pass: PASSWORD,
         },
     });
 

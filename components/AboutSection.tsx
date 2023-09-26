@@ -44,9 +44,9 @@ const AboutSection = () => {
                             To be sustainable, we need to balance producing a great product with not being overly burdensome for part-time contributors to maintain. 
                         </p>
                         <br />
-                        <p> We have two types of contributors: </p>
+                        <p className="text-lg lg:text-xl"> We have two types of contributors: </p>
                         <br />
-                        <ul className="pl-6 list-disc list-inside">
+                        <ul className="pl-6 text-lg list-disc list-inside lg:text-xl">
                             <li><span className="text-indigo-600 dark:text-indigo-300"><span className="font-bold">"Academic":</span> Identify the 3-5 publications that actually matter from your field of study!</span> We might also ask academics to review draft sketches. This is most likely a job for Current PhD students or PostDocs actively involved in research.</li>
                             <br />
                             <li><span className="text-teal-600 dark:text-teal-300"><span className="font-bold">"Workerbee":</span> Write 1-2 sketches that beautifully summarize the core ideas from selected publications!</span> This is most likely a job for graduated students working in industry. The challenge is to produce content that is easily digestable (think visual) for other members.</li>

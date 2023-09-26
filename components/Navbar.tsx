@@ -45,7 +45,7 @@ export default function Navbar() {
                         <div className="flex justify-between space-x-5 space-y-0 md:hidden md:space-y-0">
                             <button 
                                 onClick={() => setNavbar(!navbar)}
-                                className="p-2 bg-stone-300 dark:bg-slate-100 rounded-xl"
+                                className="p-2 bg-slate-100 dark:bg-stone-300 rounded-xl"
                                 // className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
                             >
                                 {navbar ? <IoMdClose size={25} color="black"/> : <IoMdMenu size={25} color="black" />}

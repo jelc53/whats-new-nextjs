@@ -1,13 +1,13 @@
 import React from "react"
-import Image from 'next/image';
 import getPostMetadata from "@/components/getPostMetadata";
 import PostPreview from "@/components/PostPreview";
 
 
 const FeaturedSection = () => {
   const postMetadata = getPostMetadata();
-  const postPreviews = postMetadata.map((post) => (
+  const postPreviews = postMetadata.map((post, index) => (
     <PostPreview 
+      uid={index}
       key={post.slug} 
       sketchTitle={post.sketchTitle}
       sketchAuthor={post.sketchAuthor}

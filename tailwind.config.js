@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
@@ -19,6 +21,20 @@ module.exports = {
         slideUp: "slideUp 0.5s",
         slideUpEaseInOut: "slideUp 0.5s ease-in-out",
         slideUpCubiBezier: "slideUp 1s cubic-bezier(0.165, 0.84, 0.44, 1)",
+      },
+      colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+        black: colors.black,
+        white: colors.white,
+        emerald: colors.emerald,
+        indigo: colors.indigo,
+        yellow: colors.yellow,
+        stone: colors.stone,
+        sky: colors.sky,
+        neutral: colors.neutral,
+        gray: colors.gray,
+        slate: colors.slate,
       },
       animationDelay: {
         0: "0s",

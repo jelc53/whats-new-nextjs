@@ -1,20 +1,21 @@
 ---
-sketchTitle: Example Sketch 5
-sketchAuthor: "Tomas Bosschieter, 18th Sept 2023"
+sketchTitle: Shortened Example Sketch Title 5
+sketchAuthor: "Tomas Bosschieter, 18th Sept. 2023"
 sketchPublishDate: "2023-09-18"
-articleTitle: Designing Data-Intensive Applications
-articleAuthor: Martin Kleppmann
-articlePublishDate: "2017-01-01"
+articleTitle: Example Article With Reasonably Long Title 5
+articleAuthor: Martin Kleppmann & Martin Kleppmann
+articlePublishDate: "2017-01-05"
 category: Deep Learning
 bannerImage: /imgs/neuromancer_headset.png
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 ---
 
----
-Publication: Designing Data-Intensive Applications
-Author(s): Martin Kleppmann
-Date: January, 2017
----
+|     |     |
+| --- | --- |  
+| **Title** | **Example Article With Reasonably Long Title 5** |  
+| Author(s) | Martin Kleppmann & Martin Kleppmann |  
+| Date published | January, 2017 |  
+|     |     |   
 
 This is an example *sketch* written in markdown.
 

@@ -1,21 +1,21 @@
 ---
-sketchTitle: Example Sketch 1
-sketchAuthor: Julian Cooper, 14th Sept 2023
+sketchTitle: Shortened Example Sketch Title 1
+sketchAuthor: Julian Cooper, 14th Sept. 2023
 sketchPublishDate: "2023-09-13"
-articleTitle: Designing Data-Intensive Applications
-articleAuthor: Martin Kleppmann
+articleTitle: Example Article With Reasonably Long Title 1
+articleAuthor: Martin Kleppmann & Kleppmann
 articlePublishDate: "2017-01-01"
 category: Convex Optimization
 bannerImage: /imgs/neuromancer_headset.png
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 ---
 
----
-
-##### Publication: Designing Data-Intensive Applications
-##### Author(s): Martin Kleppmann
-##### Date: January, 2017
-___
+|     |     |
+| --- | --- |  
+| **Title** | **Example Article With Reasonably Long Title 1** |  
+| Author(s) | Martin Kleppmann & Martin Kleppmann |  
+| Date published | January, 2017 |  
+|     |     |    
 
 Motivation: Building data systems that are reliable, scalable and maintainable
 

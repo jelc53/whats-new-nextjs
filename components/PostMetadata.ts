@@ -1,4 +1,5 @@
 export interface PostMetadata {
+    uid: number;
     sketchTitle: string;
     sketchAuthor: string;
     sketchPublishDate: string;

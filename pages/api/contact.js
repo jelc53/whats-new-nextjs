@@ -1,3 +1,4 @@
+// const nodemailer = require("nodemailer");
 import nodemailer from "nodemailer"
 
 export default async function ContactAPI(req, res) {
@@ -29,7 +30,10 @@ export default async function ContactAPI(req, res) {
     });
     
     const mailData = {
-        from: "jelc2718@gmail.com",
+        from: {
+            name: 'whats-new-admin',
+            address: 'jelc2718@gmail.com'
+        },
         replyTo: email,
         to: "jelc2718@gmail.com",  //TODO: add leqi, etc.
         subject: `[whats-new] message from ${email}`,
@@ -41,7 +45,7 @@ export default async function ContactAPI(req, res) {
 
     await new Promise((resolve, reject) => {
         // send mail
-        transporter.sendMail(mailData, (err, info) => {
+        transporter.sendMail(mailData, function (err, info) => {
             if (err) {
                 console.error(err);
                 reject(err);
@@ -55,25 +59,3 @@ export default async function ContactAPI(req, res) {
     res.status(200).json({ status: "OK"});
 
 };
-
-
-    // transporter.sendMail(mailOptions, function (error, info) {
-    //     if (error) {
-    //       throw new Error(error);
-    //     } else {
-    //       console.log("message sent");
-    //       return true;
-    //     }
-    //   });
-    
-    // try {
-    //     const mail = await transporter.sendMail(mailOptions);
-    //     console.log("Message sent:", mail.messageId);
-
-    //     res.status(200).jprocess.envson({ message: "success" });
-    // } catch (error) {
-    //     console.log(error);
-    //     res.status(500).json({ message: "Could not send email. Your message was not sent."});
-    // }
-
-    // return res.status(200).json({message: "success"})

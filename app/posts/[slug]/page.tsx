@@ -1,18 +1,13 @@
 import fs from "fs";
 import React from "react";
-// import { FC } from "react";
 import Image from 'next/image';
 import matter from "gray-matter";
 import remarkGfm from "remark-gfm";
 import remarkMath from 'remark-math'
+// import BuildMarkdown from '@/components/BuildMarkdown';
 // import rehypeKatex from 'rehype-katex'
-// import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-// import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown';
 import ReactMarkdown from "react-markdown";
 import getPostMetadata from "@/components/getPostMetadata";
-
-// import 'katex/dist/katex.min.css' // `rehype-katex` does not import the CSS for you
-// SyntaxHighlighter.registerLanguage('markdown', markdown);
 
 const getPostContent = (slug: string) => {
   const folder = "posts/";
@@ -22,21 +17,12 @@ const getPostContent = (slug: string) => {
   return matterResult;
 };
 
-type MarkdownProps = {
-  markdown: string & { content?: string };
-};
-
-// const Markdown: FC<MarkdownProps> = ({ markdown }) => {
-
-//   const MarkdownComponents: object = {
-//     // SyntaxHighlight code will go here
-//   }
-
 export const generateStaticParams = async () => {
   const posts = getPostMetadata();
   return posts.map((post) => ({
     slug: post.slug,
   }));
+  
 };
 
 const SketchPage = (props: any) => {
@@ -65,6 +51,7 @@ const SketchPage = (props: any) => {
             // rehypePlugins={[rehypeHighlight]}
             // components={MarkdownComponents}
           />
+          {/* <BuildMarkdown post={post} /> */}
         </article>
       </div>
     );

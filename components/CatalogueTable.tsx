@@ -106,7 +106,7 @@ export default function CatalogueTable({ data }: {data : any[]}) {
                         {filteredAndSortedData.map(item => (
                             <tr key={item.uid}>
                                 <td className="px-4 break-words min-w-[50px] py-2 border-b border-gray-200">{item.uid}</td>
-                                <td className="px-4 py-2 break-words min-w-[75px] border-b border-gray-200">{item.articlePublishDate}</td>
+                                <td className="px-4 py-2 break-words min-w-[80px] border-b border-gray-200">{item.articlePublishDate}</td>
                                 <td className="px-4 break-words min-w-[300px] hover:dark:text-fuchsia-100 hover:text-fuchsia-400 py-2 border-b border-gray-200">
                                     <Link href={`/posts/${item.slug}`}>
                                         {item.articleTitle}

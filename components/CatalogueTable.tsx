@@ -26,7 +26,7 @@ export default function CatalogueTable({ data }: {data : any[]}) {
         return sortedData;
     }, [data, searchTerm, sortField, sortDirection]);
 
-    const handleSort = (field) => {
+    const handleSort = (field : any) => {
         setSortField(field);
         setSortDirection(sortDirection === 'desc' ? 'asc' : 'desc');
     };

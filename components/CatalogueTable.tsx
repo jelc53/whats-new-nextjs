@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 
-export default function CatalogueTable({ data }) {
+export default function CatalogueTable({ data }: {data : any[]}) {
     const [searchTerm, setSearchTerm] = useState("");
     const [sortField, setSortField] = useState(null);
     const [sortDirection, setSortDirection] = useState("desc");

@@ -14,7 +14,21 @@ export default async function ContactAPI(req, res) {
         },
     });
 
-    const mailOptions = {
+
+    await new Promise((resolve, reject) => {
+        // verify connection configuration
+        transporter.verify(function (error, success) {
+            if(error) {
+                console.log(error);
+                reject(error);
+            } else {
+                console.log("Server is ready to take our messages");
+                resolve(success);
+            }
+        });
+    });
+    
+    const mailData = {
         from: "jelc2718@gmail.com",
         replyTo: email,
         to: "jelc2718@gmail.com",  //TODO: add leqi, etc.
@@ -25,15 +39,33 @@ export default async function ContactAPI(req, res) {
         `,
     };
 
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          throw new Error(error);
-        } else {
-          console.log("message sent");
-          return true;
-        }
-      });
+    await new Promise((resolve, reject) => {
+        // send mail
+        transporter.sendMail(mailData, (err, info) => {
+            if (err) {
+                console.error(err);
+                reject(err);
+            } else {
+                console.log(info);
+                resolve(info);
+            }
+        });
+    });
+
+    res.status(200).json({ status: "OK"});
+
 };
+
+
+    // transporter.sendMail(mailOptions, function (error, info) {
+    //     if (error) {
+    //       throw new Error(error);
+    //     } else {
+    //       console.log("message sent");
+    //       return true;
+    //     }
+    //   });
+    
     // try {
     //     const mail = await transporter.sendMail(mailOptions);
     //     console.log("Message sent:", mail.messageId);

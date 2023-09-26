@@ -2,8 +2,8 @@
 sketchTitle: Shortened Example Sketch Title 4
 sketchAuthor: "Axel Peytavin, 17th Sept. 2023"
 sketchPublishDate: "2023-09-17"
-articleTitle: Designing Data-Intensive Applications
-articleAuthor: Example Article With Reasonably Long Title 4
+articleTitle: Example Article With Reasonably Long Title 4
+articleAuthor: Martin Kleppmann & Martin Kleppmann
 articlePublishDate: "2017-01-04"
 category: Deep Learning
 bannerImage: /imgs/neuromancer_headset.png

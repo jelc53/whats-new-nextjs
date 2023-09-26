@@ -6,7 +6,8 @@ export default async function ContactAPI(req, res) {
     //TODO: add testing to confirm recieving valid inputs
 
     const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
+        // host: "smtp.gmail.com",
+        service: 'gmail',
         port: 465,
         secure: true,
         auth: {
@@ -45,7 +46,7 @@ export default async function ContactAPI(req, res) {
 
     await new Promise((resolve, reject) => {
         // send mail
-        transporter.sendMail(mailData, function (err, info) {
+        transporter.sendMail(mailData, (err, info) => {
             if (err) {
                 console.error(err);
                 reject(err);

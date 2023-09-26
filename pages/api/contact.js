@@ -45,7 +45,7 @@ export default async function ContactAPI(req, res) {
 
     await new Promise((resolve, reject) => {
         // send mail
-        transporter.sendMail(mailData, function (err, info) => {
+        transporter.sendMail(mailData, function (err, info) {
             if (err) {
                 console.error(err);
                 reject(err);

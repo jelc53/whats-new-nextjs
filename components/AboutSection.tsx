@@ -19,12 +19,12 @@ const AboutSection = () => {
                                 is a wiki for short-form, visual summaries ("sketches") of academic publications.
                             </p> 
                             <br />
-                            <p>
+                            <p className="text-lg lg:text-xl">
                                 The project was started by a group of students with too much time on their hands in 2023 
-                                and a shared love of purple color schemes*. 
+                                and a shared love of purple color schemes.* 
                             </p>
                             <br />
-                            <p>
+                            <p className="text-lg lg:text-xl">
                                 While studying, we felt (maybe for the first time) that we had our finger on the pulse of this wierd, wonderful and rapidly changing world of applied math.
                                 We would read a new publication and know straight away if it was game-changing or just noise.
                                 However, as we leave academia or begin to specialize, we will naturally lose some of that pulse. 

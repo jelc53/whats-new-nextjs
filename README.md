@@ -1,17 +1,31 @@
-This repo contains source code for the What's New? project. You can visit the website at [whatsnew.wiki](whatsnew.wiki).
+The *Whats New?* project is a wiki for short, visually engaging summaries of academic publications within the fields of applied math and computer science.
+
+You can visit our website at [whatsnew.wiki](whatsnew.wiki).
 
 ## Getting Started
 
-First, run the development server: `npm run dev`
+Clone and cd into the repository on your local machine.
+
+Run the development server: `npm run dev`.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-This a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing webpages by modifying `page.tsx` files within `app/` directory. The page auto-updates as you edit the file.
 
 ## Web Deployment
 
-The app is statically deployed with [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) and integrated with GitHub. Every push to `main` automatically triggers a new deployment.
+The app is statically deployed on [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) with GitHub integration. 
 
-Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment) for Vercel documnetation.
+Every push to `main` automatically triggers a new build and re-deployment routine.
+
+Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment) for Vercel documentation.
+
+## Backlog
+
+- [high] Create and test markdown sketch template (Leqi & Quinn)
+  
+- [high] Add math and code styling to `react-markdown` translation layer  
+  
+- [med] Limited "featured" section to 4-8 msot recent sketches, regardless of number of catalogue entries
+   
+- [low] Migrate to flutter framework and add mobile app version

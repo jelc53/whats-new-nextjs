@@ -12,6 +12,24 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing webpages by modifying `page.tsx` files within `app/` directory. The page auto-updates as you edit the file.
 
+## Sketch Contributions
+
+Sketches are written in [GitHub Flavored Markdown](https://github.github.com/gfm/) (GFM) and rendered using the `react-markdown` node package.
+
+Steps for publishing a new sketch to the website catalogue:
+
+0. Pull latest from `main` production branch
+
+1. Checkout a new branch `git checkout <branch-name>` for each sketch submission
+
+2. Write your sketch as a markdown `.md` file and save with the rest of the sketch catalogue inside the `posts/` directory
+
+3. Git `add`, `commit` and `push` your markdown sketch file to your new branch `<branch-name>`
+
+4. Create a pull request to merge `<branch-name>` into `main` and select a reviewer from the list of collaborators
+
+5. After review, make any needed updates and merge into `main` - you're done!
+   
 ## Web Deployment
 
 The app is statically deployed on [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) with GitHub integration. 
@@ -26,6 +44,6 @@ Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment)
   
 - [high] Add math and code styling to `react-markdown` translation layer  
   
-- [med] Limited "featured" section to 4-8 msot recent sketches, regardless of number of catalogue entries
+- [med] Limited "featured" section to 4-8 most recent sketches, regardless of number of catalogue entries
    
 - [low] Migrate to flutter framework and add mobile app version

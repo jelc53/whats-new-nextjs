@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+The *Whats New?* project is a wiki for short, visually engaging summaries of academic publications within the fields of applied math and computer science.
+
+You can visit our website at [whatsnew.wiki](whatsnew.wiki).
 
 ## Getting Started
 
-First, run the development server:
+Clone and cd into the repository on your local machine.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Run the development server: `npm run dev`.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing webpages by modifying `page.tsx` files within `app/` directory. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Sketch Contributions
 
-## Learn More
+Sketches are written in [GitHub Flavored Markdown](https://github.github.com/gfm/) (GFM) and rendered using the `react-markdown` node package.
 
-To learn more about Next.js, take a look at the following resources:
+Steps for publishing a new sketch to the website catalogue:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+0. Pull latest from `main` production branch
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Checkout a new branch `git checkout <branch-name>` for each sketch submission
 
-## Deploy on Vercel
+2. Write your sketch as a markdown `.md` file and save with the rest of the sketch catalogue inside the `posts/` directory
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Git `add`, `commit` and `push` your markdown sketch file to your new branch `<branch-name>`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+4. Create a pull request to merge `<branch-name>` into `main` and select a reviewer from the list of collaborators
+
+5. After review, make any needed updates and merge into `main` - you're done!
+   
+## Web Deployment
+
+The app is statically deployed on [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) with GitHub integration. 
+
+Every push to `main` automatically triggers a new build and re-deployment routine.
+
+Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment) for Vercel documentation.
+
+## Backlog
+
+- [high] Create and test markdown sketch template (Leqi & Quinn)
+  
+- [high] Add math and code styling to `react-markdown` translation layer  
+  
+- [med] Limited "featured" section to 4-8 most recent sketches, regardless of number of catalogue entries
+   
+- [low] Migrate to flutter framework and add mobile app version

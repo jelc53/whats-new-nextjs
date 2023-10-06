@@ -28,6 +28,7 @@ f(x)=
 \end{cases}
 $$
 
+
 Here is a matrix,
 $$ 
 M =
@@ -40,3 +41,14 @@ M =
 0 & 1
 \end{bmatrix}
 $$
+
+```python
+import numpy as np
+
+def main():
+    # print statement to console
+    print("Our code looks great!")
+
+if __name__ == "__main__":
+    main()
+```

@@ -2,12 +2,9 @@ import fs from "fs";
 import React from "react";
 import Image from 'next/image';
 import matter from "gray-matter";
-import remarkGfm from "remark-gfm";
-import remarkMath from 'remark-math'
-// import BuildMarkdown from '@/components/BuildMarkdown';
-// import rehypeKatex from 'rehype-katex'
-import ReactMarkdown from "react-markdown";
-import getPostMetadata from "@/components/getPostMetadata";
+import Markdown from '@/components/Markdown'
+import getPostMetadata from '@/components/getPostMetadata'
+
 
 const getPostContent = (slug: string) => {
   const folder = "posts/";
@@ -28,6 +25,7 @@ export const generateStaticParams = async () => {
 const SketchPage = (props: any) => {
   const slug = props.params.slug;
   const post = getPostContent(slug);
+  // console.log(post);
     return (
       <div className="flex flex-col items-center justify-center mx-8 md:mx-10 mt-20 lg:mx-[10vw]">
         <div className="text-center">
@@ -44,14 +42,8 @@ const SketchPage = (props: any) => {
             <p className="pb-6 text-lg text-stone-400 dark:text-stone-300 md:text-xl lg:text-2xl">{post.data.sketchAuthor}</p>
         </div>
         
-        <article className="w-full prose md:prose-lg lg:prose-xl">
-          <ReactMarkdown 
-            children={post.content}
-            remarkPlugins={[[remarkGfm, remarkMath]]}
-            // rehypePlugins={[rehypeHighlight]}
-            // components={MarkdownComponents}
-          />
-          {/* <BuildMarkdown post={post} /> */}
+        <article className="w-full pb-10 prose lg:pb-16 md:prose-lg lg:prose-xl">
+          <Markdown post={post} />
         </article>
       </div>
     );

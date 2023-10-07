@@ -48,8 +48,8 @@ function Markdown({ content } : {content : any}) {
                                         wrapLongLines={true}
                                         style={currentTheme === 'dark' ? materialOceanic : materialLight}
                                         customStyle={{
-                                            marginTop: "-1rem", 
-                                            marginBottom: "-1rem",
+                                            marginTop: "-1.5rem", 
+                                            marginBottom: "-1.5rem",
                                             marginLeft: "-2rem", 
                                             marginRight: "-2rem",
                                         }}

@@ -1,21 +1,17 @@
 'use client'
 import '@/styles/md.css';
-import React from "react";
 import { useTheme } from "next-themes"
 import ReactMarkdown from "react-markdown";
+import React, { useEffect, useState } from 'react';
 
 import remarkGfm from "remark-gfm";
-import remarkMath from 'remark-math'
-// import rehypeMathjax from 'rehype-mathjax'
+import remarkMath from 'remark-math';
+// import rehypeKatex from 'rehype-katex';
+import rehypeMathjax from 'rehype-mathjax'
 // import { BlockMath, InlineMath } from "react-katex";
-// import "katex/dist/katex.min.css";
+import "katex/dist/katex.min.css";
 
 import CodeCopyBtn from './codeCopyBtn';
-// import { IoIosCopy, IoIosCheckmarkCircleOutline } from 'react-icons/io'
-// import { ToastContainer, toast } from 'react-toastify'
-// import 'react-toastify/dist/ReactToastify.css'
-// import { CopyToClipboard } from 'react-copy-to-clipboard'
-
 import type { CodeProps } from "react-markdown/lib/ast-to-react";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import {materialLight, materialOceanic} from 'react-syntax-highlighter/dist/cjs/styles/prism'
@@ -24,14 +20,23 @@ import {materialLight, materialOceanic} from 'react-syntax-highlighter/dist/cjs/
 function Markdown({ content } : {content : any}) {
     const {systemTheme, theme, setTheme} = useTheme()
     const currentTheme = theme === "system" ? systemTheme : theme
-                                
+    const [isMounted, setIsMounted] = useState(false);
+    
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        return null; // disable server-side rendering
+    }
+    
     return (
         <div className={`${currentTheme === 'dark' ? 'dark' : ''}`}>
             <div className="text-black markdown-content dark:text-white ">
                 <ReactMarkdown 
                     children={content}
                     remarkPlugins={[[remarkGfm, remarkMath]]} 
-                    // rehypePlugins={[[rehypeMathjax]]}
+                    rehypePlugins={[rehypeMathjax]}
                     components={{
                         code({ node, inline, className, children, style, ...props } : CodeProps) {
                             const match = /language-(\w+)/.exec(className || '')  

@@ -1,43 +1,55 @@
 'use client'
 import '@/styles/md.css';
 import { useTheme } from "next-themes"
-import ReactMarkdown from "react-markdown";
 import React, { useEffect, useState } from 'react';
 
 import remarkGfm from "remark-gfm";
 import remarkMath from 'remark-math';
-// import rehypeKatex from 'rehype-katex';
 import rehypeMathjax from 'rehype-mathjax'
-// import { BlockMath, InlineMath } from "react-katex";
-import "katex/dist/katex.min.css";
 
 import CodeCopyBtn from './codeCopyBtn';
 import type { CodeProps } from "react-markdown/lib/ast-to-react";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import {materialLight, materialOceanic} from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
+// import ReactMarkdown from "react-markdown";
+import dynamic from 'next/dynamic';
+
+
+// dynamic import of react-markdown with ssr turned off
+const DynamicReactMarkdown = dynamic(() => import('react-markdown') as Promise<{default: React.ComponentType<any>}> , {
+    ssr: false
+});
 
 function Markdown({ content } : {content : any}) {
     const {systemTheme, theme, setTheme} = useTheme();
     const currentTheme = theme === "system" ? systemTheme : theme;
-    const [isMounted, setIsMounted] = useState(false);
+    // const [isMounted, setIsMounted] = useState(false);
     
-    useEffect(() => {
-        setIsMounted(true);
-        // manually trigger MathJax to process the page again
-        // if (window.MathJax) {
-        //     window.MathJax.typesetPromise();
-        // }
-    }, []);
+    // useEffect(() => {
+    //     setIsMounted(true);
+    //     // manually trigger MathJax to process the page again
+    //     setTimeout(() => {
+    //         if (window.MathJax) {
+    //             window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
+    //         }
+    //     }, 100);
+    // }, []);
 
-    if (!isMounted) {
-        return null; // disable server-side rendering
-    }
+    // if (!isMounted) {
+    //     return null; // disable server-side rendering
+    // }
+
+    useEffect(() => {
+        if (window.MathJax) {
+            window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
+        }
+    }, []);
     
     return (
         <div className={`${currentTheme === 'dark' ? 'dark' : ''}`}>
             <div className="text-black markdown-content dark:text-white ">
-                <ReactMarkdown 
+                <DynamicReactMarkdown 
                     children={content}
                     remarkPlugins={[[remarkGfm, remarkMath]]} 
                     rehypePlugins={[rehypeMathjax]}

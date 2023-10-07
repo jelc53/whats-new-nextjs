@@ -43,7 +43,7 @@ const SketchPage = (props: any) => {
         </div>
         
         <article className="w-full pb-10 prose lg:pb-16 md:prose-lg lg:prose-xl">
-          <Markdown post={post} />
+          <Markdown content={post.content} />
         </article>
       </div>
     );

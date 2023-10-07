@@ -16,6 +16,8 @@
     "@types/node": "20.6.2",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "bufferutil": "^4.0.7",
+    "canvas": "^2.11.2",
     "dotenv": "^16.3.1",
     "font-awesome": "^4.7.0",
     "form": "^0.2.4",
@@ -45,6 +47,7 @@
     "remark-gfm": "^3.0.1",
     "remark-math": "^3.0.1",
     "typescript": "5.2.2",
+    "utf-8-validate": "^6.0.3",
     "vfile": "^6.0.1",
     "vfile-message": "^4.0.2"
   },

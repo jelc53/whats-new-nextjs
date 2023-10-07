@@ -18,12 +18,16 @@ import {materialLight, materialOceanic} from 'react-syntax-highlighter/dist/cjs/
 
 
 function Markdown({ content } : {content : any}) {
-    const {systemTheme, theme, setTheme} = useTheme()
-    const currentTheme = theme === "system" ? systemTheme : theme
+    const {systemTheme, theme, setTheme} = useTheme();
+    const currentTheme = theme === "system" ? systemTheme : theme;
     const [isMounted, setIsMounted] = useState(false);
     
     useEffect(() => {
         setIsMounted(true);
+        // manually trigger MathJax to process the page again
+        // if (window.MathJax) {
+        //     window.MathJax.typesetPromise();
+        // }
     }, []);
 
     if (!isMounted) {

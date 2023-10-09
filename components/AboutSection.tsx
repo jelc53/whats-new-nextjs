@@ -20,7 +20,7 @@ const AboutSection = () => {
                             </p> 
                             <br />
                             <p className="text-lg lg:text-xl">
-                                The project was started by a group of students with too much time on their hands in 2023 
+                                The project was started in late 2023 by a group of students with too much time on their hands  
                                 and a shared love of purple color schemes.* 
                             </p>
                             <br />

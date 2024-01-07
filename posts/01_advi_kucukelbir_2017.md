@@ -22,7 +22,7 @@ description: "Variational Inference is used to approximate joint posterior distr
 
 Variational Inference, Laplace Approximation and Integrated Nested Laplace Approximation all belong to a family of techniques that seek to approximate an intractable posterior distribution with a simpler, tractable distribution. In this sketch we focus on the practical implementation of Variational Inference (VI). 
 
-The first significant publication on VI applied to statistical inference was written in 1999 by Michael I. Jordan, Zoubin Ghahramani, Tommi S. Jaakkola and Lawrence K. Saul. Jordan et al introduced the idea that if one could find a well-chosen family of distributions, then inference could be reframed as an optimization problem where we search for the parameters (i.e. a specific member of this family) that minimize the Kullback-Leibler (KL) divergence between the true posterior and the proposed approximate distribution. Kucukelbir et al. brought the theory of VI into practice by implementing a version in code that leveraged Stan's Auto-Differentiation software library. 
+The first significant publication on VI applied to statistical inference was written in 1999 by Michael I. Jordan, Zoubin Ghahramani, Tommi S. Jaakkola and Lawrence K. Saul [[1]](#useful-references). Jordan et al introduced the idea that if one could find a well-chosen family of distributions, then inference could be reframed as an optimization problem where we search for the parameters (i.e. a specific member of this family) that minimize the Kullback-Leibler (KL) divergence between the true posterior and the proposed approximate distribution. Kucukelbir et al brought the theory of VI into practice by implementing a version in code that leveraged Stan's Auto-Differentiation software library [[2]](#useful-references). 
 
 
 ### Motivation
@@ -31,7 +31,7 @@ Markov Chain Monte Carlo (MCMC) sampling techniques - such as Metropolis-Hasting
 
 The answer is simple: *speed to convergence*. With the exception of Gibbs Sampling (requires us to be able to solve for conditional distributions for each parameter, which is often intractable), the VI algorithm is much faster than MCMC sampling techniques.
 
-Moreover, if we start with a strong prior (and therefore a good proposal family of distributions), then we are likely to converge to a posterior close to the true posterior distribution. Unfortunately, it is difficult to know how close. While some predictive methods are explored by [xx] et al. here [](), in practice normally also implement MCMC sampling to check the accuracy of our VI method. If "close enough" for a given model formulation, we will often then disregard the MCMC sampler and make the assumption that our VI implementation will continue to perform well on variations of our model with new data.   
+Moreover, if we start with a strong prior (and therefore a good proposal family of distributions), then we are likely to converge to a posterior close to the true posterior distribution. Unfortunately, it is difficult to know how close. While some predictive methods are explored by xx et al [[3]](#useful-references), in practice normally also implement MCMC sampling to check the accuracy of our VI method. If "close enough" for a given model formulation, we will often then disregard the MCMC sampler and make the assumption that our VI implementation will continue to perform well on variations of our model with new data.   
 
 
 ### Math intuition
@@ -118,9 +118,20 @@ Table or just description of the different implementations ...
 Stan, PyMC, Pyro, NumPyro, Edward2
 
 
-### References
-- original paper 
-- stochastic paper
-- recap on variaitonal ifnerence
-- how do we know it works
+### Useful references
+
+An Introduction to Variational Methods for Graphical Models (Michael Jordan, Zoubin Ghahramani, Tommi S. Jaakkola and Lawrence K. Saul, 1999) 
+[[1]](https://www.researchgate.net/publication/226435002_An_Introduction_to_Variational_Methods_for_Graphical_Models)
+
+Automatic Variation Inference in Stan (Alp Kucukelbir, Rjesh Ranganath, Andrew Gelman and David Blei, 2015)
+[[2]](https://arxiv.org/abs/1506.03431)
+
+Yes, but Did It Work?: Evaluating Variational Inference (Yuling Yao, Aki Vehtari, Daniel Sompson and Andrew Gelman, 2018)
+[[3]](https://arxiv.org/pdf/1802.02538.pdf)
+
+Stochastic Variational Inference (Matt Hoffman, David M. Blei, Chong Wang and John Paisley, 2012)
+[[4]](https://arxiv.org/abs/1206.7051)
+
+Variational Inference Practical Walkthrough (Minh-Ngoc Tran, 2021)
+[[5]](https://arxiv.org/pdf/2103.01327.pdf)
 

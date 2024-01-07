@@ -18,23 +18,40 @@ description: "Variational Inference is used to approximate joint posterior distr
 |     |     |   
 
 
-### Introduction
+### motivation
 
-Variational Inference, Laplace Approximation and Integrated Nested Laplace Approximation all belong to a family of techniques that seek to approximate an intractable posterior distribution with a simpler, tractable distribution. In this sketch we focus on the practical implementation of Variational Inference (VI). 
+Markov Chain Monte Carlo (MCMC) sampling techniques - such as Metropolis-Hastings, Gibbs Sampling, and Hamiltonian Monte Carlo - represent the most common approach for approximating a posterior distribution that is analytically intractable. These techniques guarantee convergence to the true posterior given sufficient data. Variational Inference (VI), by contrast, is an alternative technique that almost certainly will *not* converge to the true posterior. So why then do we care about VI?
 
-The first significant publication on VI applied to statistical inference was written in 1999 by Michael I. Jordan, Zoubin Ghahramani, Tommi S. Jaakkola and Lawrence K. Saul [[1]](#useful-references). Jordan et al introduced the idea that if one could find a well-chosen family of distributions, then inference could be reframed as an optimization problem where we search for the parameters (i.e. a specific member of this family) that minimize the Kullback-Leibler (KL) divergence between the true posterior and the proposed approximate distribution. Kucukelbir et al brought the theory of VI into practice by implementing a version in code that leveraged Stan's Auto-Differentiation software library [[2]](#useful-references). 
+The answer is simple: *speed to convergence*. With the exception of Gibbs Sampling (requires us to find conditional distributions for each parameter, often intractable), the VI algorithm is much faster than MCMC sampling techniques.
 
-
-### Motivation
-
-Markov Chain Monte Carlo (MCMC) sampling techniques - such as Metropolis-Hastings, Gibbs Sampling, and Hamiltonian Monte Carlo - represent the most common approach for approximating a posterior distribution that is analytically intractable. These techniques guarantee convergence to the true posterior given sufficient data. VI, by contrast, almost certainly will not converge to the true posterior unless our proposal family of distributions is chosen perfectly. So why then do we care about Variational Inference?
-
-The answer is simple: *speed to convergence*. With the exception of Gibbs Sampling (requires us to be able to solve for conditional distributions for each parameter, which is often intractable), the VI algorithm is much faster than MCMC sampling techniques.
-
-Moreover, if we start with a strong prior (and therefore a good proposal family of distributions), then we are likely to converge to a posterior close to the true posterior distribution. Unfortunately, it is difficult to know how close. While some predictive methods are explored by xx et al [[3]](#useful-references), in practice normally also implement MCMC sampling to check the accuracy of our VI method. If "close enough" for a given model formulation, we will often then disregard the MCMC sampler and make the assumption that our VI implementation will continue to perform well on variations of our model with new data.   
+Moreover, if we start with a good proposal distribution (more on this later), then we are likely to converge to a posterior close" to the true posterior. Unfortunately, it is difficult to know how close. While some accuracy bounds have been explored by Yao et al [[3]](#useful-references), in practice we normally also implement MCMC sampling to check the accuracy of our VI method. If our result is "close enough" for a given model formulation, we will then disregard the MCMC sampler in favour of the faster VI implementation and make the assumption that VI will continue to perform well on variations of our model with new data.   
 
 
-### Math intuition
+### a brief history
+
+Variational Inference, Laplace Approximation and Integrated Nested Laplace Approximation all belong to a family of techniques developed in the 1990s that seek to approximate an intractable bayesian posterior distribution with a simpler, tractable distribution. 
+
+Ihe first significant publication on VI applied to statistical inference was written in 1999 by Michael I. Jordan, Zoubin Ghahramani, Tommi S. Jaakkola and Lawrence K. Saul [[1]](#useful-references). Jordan et al introduced the idea that if one could find a well-chosen family of distributions, then inference could be reframed as an optimization problem where we search for the parameters (i.e. a specific member of this family) that minimize the Kullback-Leibler (KL) divergence between the true posterior and the proposed approximate distribution. 
+
+Kucukelbir et al brought the theory of VI into practice by implementing a version in code that leveraged Stan's Auto-Differentiation software library [[2]](#useful-references). 
+
+
+### math intuition
+
+Bayesian inference requires us to find a way to solve for $p(\theta|X)$, the posterior distribution of the parameters $\theta$ given the training set $X$. In practice, there are two ways to apporach this problem: (i) simulation (MCMC techniques) or (ii) optimization (VI, INLA, etc.).
+
+The idea behind VI is to look for a distribution $q(\theta)$ that can be a surrogate (tractable approximation) for our true posterior $p(\theta|X)$. We then try to make $q[\theta|\phi(X)]$ look as simialr as possible to $p(\theta|X)$ by changing the values of $\phi$. 
+
+This is done by maximizing the Evidence Lower Bound (ELBO). The ELBO is Jensen's inequality applied to the log probability of observations. This produces a useful lower bound on the log-likelihood of some observed data. By choosing a good approximation $q$ of our posterior, we are maximizing the ELBO!
+$$ \log p(x) \ge \mathbb{E}_q[l] \approx \mathbb{E}_q[\log p(x, Z)] - \mathbb{E}_q[\log q(Z)] $$
+
+KL divergence is equal to the negative ELBO plus the log marginal probability of our data $X$. Minimizing 
+KL divergence is equivalent to maximizing the ELBO since the log marginal probability ($\log p(x)$) does not depend on $q$.
+
+$$ \text{KL}(q(z)|| p(z|x)) = -(\mathbb{E}_q[\log p(x, Z)] - \mathbb{E}_q[\log q(Z)] )+ \log p(x) $$
+
+![Sketch of optimization solved by Variational Inference algorithm](/imgs/variational-inference-optimization.png)
+
 
 Toy example problem ...
 
@@ -63,16 +80,9 @@ of the observations. This produces a useful lower-bound on the log-likelihood of
 observed data. By choosing a good approximation $q$ of our posterior, we are 
 maximizing the ELBO ($\mathbb{E}_q[l]$). 
 
-$$ \log p(x) \ge \mathbb{E}_q[l] \approx \mathbb{E}_q[\log p(x, Z)] - \mathbb{E}_q[\log q(Z)] $$
-
-KL divergence = negative ELBO + log marginal probability of $x$. Minimizing 
-KL divergence is equivalent to maximizing the ELBO since the log marginal 
-prob. ($\log p(x)$) does not depend on $q$.
-
-$$ \text{KL}(q(z)|| p(z|x)) = -(\mathbb{E}_q[\log p(x, Z)] - \mathbb{E}_q[\log q(Z)] )+ \log p(x) $$
 
 
-### Stan's ADVI algorithm
+### stan algorithm
 
 First end-to-end algo that automated VI. 
 Particularly autograd and proposal dist!
@@ -99,7 +109,7 @@ Result is optimal params for proposal distribution that minimizes KL divergence 
 Fast alternate version: xx
 
 
-### Code implementations
+### code implementations
 
 Short example ... tensorflow
 
@@ -118,12 +128,12 @@ Table or just description of the different implementations ...
 Stan, PyMC, Pyro, NumPyro, Edward2
 
 
-### Useful references
+### useful references
 
 An Introduction to Variational Methods for Graphical Models (Michael Jordan, Zoubin Ghahramani, Tommi S. Jaakkola and Lawrence K. Saul, 1999) 
 [[1]](https://www.researchgate.net/publication/226435002_An_Introduction_to_Variational_Methods_for_Graphical_Models)
 
-Automatic Variation Inference in Stan (Alp Kucukelbir, Rjesh Ranganath, Andrew Gelman and David Blei, 2015)
+Automatic Variation Inference in Stan (Alp Kucukelbir, Rjesh Ranganath, Andrew Gelman and David Blei, 2017)
 [[2]](https://arxiv.org/abs/1506.03431)
 
 Yes, but Did It Work?: Evaluating Variational Inference (Yuling Yao, Aki Vehtari, Daniel Sompson and Andrew Gelman, 2018)

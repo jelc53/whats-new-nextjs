@@ -40,62 +40,68 @@ Kucukelbir et al brought the theory of VI into practice by implementing a versio
 
 Bayesian inference requires us to find a way to solve for $p(\theta|X)$, the posterior distribution of the parameters $\theta$ given the observed data $X$. In practice, there are two ways to approach this problem: (i) simulation (MCMC techniques) or (ii) optimization (VI, INLA, etc.).
 
-The idea behind VI is to look for a distribution $q(\theta)$ that can be a surrogate (tractable approximation) for our true posterior $p(\theta|X)$. We do this by first proposing a family of distributions $\mathcal{D}$ and then iteratively searching for the optimal set of parameters $\phi$ (i.e. a specific member of the family) such that $q[\theta|\phi(X)] \in \mathcal{D}$ best approximates $p(\theta|X)$. Inference now amounts to solving the following optimization problem:
+The idea behind VI is to look for a distribution $q(\theta)$ that can be a surrogate (tractable approximation) for our true posterior $p(\theta|X)$. We do this by first proposing a family of distributions $\mathcal{Q}$ and then iteratively searching for the optimal set of parameters $\phi$ (i.e. a specific member of the family) such that $q(\theta ; \phi) \in \mathcal{Q}$ best approximates $p(\theta|X)$. Inference now amounts to solving the following optimization problem:
 
-$$ q^*(\theta) = \mathop{\arg \min}\limits_{q(\theta) \in \mathcal{D}} KL(q(\theta)||p(\theta|X)) $$
+$$ 
+q^*(\theta) = \mathop{\arg \min}\limits_{q(\theta) \in \mathcal{D}} KL(q(\theta)||p(\theta|X)) 
+$$
 
 However, this objective function as-is would require us to directly compute the Kullback-Leibler (KL) Divergence which is often intractable. In particular, the evidence term $\log p(X)$ in the KL equation below is the reason we sought out numerical methods like MCMC or VI in the first place.
 
-$$ KL(q(\theta)||p(\theta|X)) = \mathbb{E}_q[\log q(\theta)] - \mathbb{E}_q[\log p(\theta, X)] + \log p(X) $$
+$$ 
+KL(q(\theta)||p(\theta|X)) = \mathbb{E}_q[\log q(\theta)] - \mathbb{E}_q[\log p(\theta, X)] + \log p(X) 
+$$
 
 Instead, we want to re-formulate the objective function to something equivalent that we know how to compute: the evidence lower bound, or ELBO. 
 
-$$ ELBO(q) = \mathbb{E}_q[\log p(X|\theta)] - KL(q(\theta)||p(\theta))$$
+$$ 
+ELBO(q) = \mathbb{E}_q[\log p(X|\theta)] - KL(q(\theta)||p(\theta))
+$$
 
-The ELBO is the negative KL Divergence between the variational distribution and true posterior $KL(q(\theta)||p(\theta))$ plus the expected log likelihood of the data $\mathbb{E}_q[\log p(X)]$. Maximizing this quantity is equivalent to minimizing the KL Divergence from our original optimization objective function, but now with some basic logarithm arithmetic [[6]](#reference-documentation) we can formulate without the $\log p(X) $ term.
+The ELBO is the negative KL Divergence between the variational distribution and true posterior $KL(q(\theta)||p(\theta))$ plus the expected log likelihood of the data $\mathbb{E}_q[\log p(X)]$. Maximizing this quantity is equivalent to minimizing the KL Divergence from our original optimization objective function, but now with some basic logarithm arithmetic [[6]](#reference-documentation) we can formulate without the $\log p(X)$ term.
  
-$$ ELBO(q) = \mathbb{E}_{q(\theta)}[\log p(\theta, X)] - \mathbb{E}_{q(\theta)} [\log q(\theta)] $$
+$$ 
+ELBO(q) = \mathbb{E}_q[\log p(\theta, X)] - \mathbb{E}_q[\log q(\theta)] 
+$$
 
 > **Note**: Maximizing the ELBO represents choosing parameters $\phi(X)$ for $q$ that optimally trade-off between fitting surrogate model to observed data (accuracy) and encouraging the model to not diverge too far from our prior distribution (regularization). 
 
 Another property of the ELBO is that it lower-bounds the log evidence $\log p(X) \ge ELBO(q)$ for any $q(\theta)$. This explains the name. To see this, notice that $ \log p(X) = KL(q(\theta)||p(\theta|X)) + ELBO(q)$ and recall that $KL(.) \ge 0$. 
-$$ ELBO(q) \ge \log \frac{\mathbb{E}_{q(\theta)}[p(\theta, X)]}{\mathbb{E}_{q(\theta)} [q(\theta)]} $$
+$$ 
+ELBO(q) \ge \log \frac{\mathbb{E}_q[p(\theta, X)]}{\mathbb{E}_q[q(\theta)]} 
+$$
 
 ![Sketch of optimization solved by Variational Inference algorithm](/imgs/variational-inference-optimization.png)
 
 
-### toy example problem
+### stan advi algorithm
+
+Kucukelbir et al introduced the first end-to-end automated algorithm for Variational Inference in 2016 [[2]](#reference-documentation), implemented in the open-source probabilistic programming language Stan. The scientist need only provide a probabilistic model and a dataset, nothing else.
+
+The following outlines the Automatic Differentiation Variational Inference (ADVI) procedure:
+
+1. Pick a proposal distribution $q(\theta ; \phi)$ from our chosen family of distributions $\mathcal{Q}$.
+
+2. Re-write ELBO expectation as a numerical approximation by sampling from our joint posterior and taking the average (LLN).
+
+3. For each optimization step ($\phi_l$):
+
+      - Sample N times from current proposal distribution $q(\theta ; \phi_l)$
+
+      - Use samples to compute approximate ELBO (our loss) and store computational graph
+
+      - Estimate gradient of negative ELBO with backpropagation (stan's autograd library)
+
+      - Increment gradient-based optimizer (adam) to find updated set of distribution parameters $\phi_{l+1}$
+
+      - Stop algorithm when converged to distribution $q^* = q(\theta ; \phi^*)$ within family $Q$ that maximizes the ELBO
+
+The result is a proposal distribution $q \in \mathcal{Q}$ that minimizes the KL divergence with the true posterior.
+
+*Stochastic ADVI*: While vanilla ADVI is already lightening fast compared with MCMC sampling methods, we can further speed-up the algorithm by estimating the gradient of the negative ELBO with only a subset of the observed data $X_i$. As with many stochastic algorithms, this approach reduces time-per-iteration at the cost of some error in the gradient direction at each step. On average convergence with Stochastic ADVI is faster and we are still guaranteed to find the optimal distribution $q^* \in \mathcal{Q}$.
 
 
-
-### stan algorithm
-
-First end-to-end algo that automated VI. 
-Particularly autograd and proposal dist!
-
-- Pick a proposal distribution
-
-- Rewrite ELBO expectation as an approx. by sampling and taking the average (LLN)
-
-- For each optimization step (theta_l):
-
-  - Sample L times from current proposal distribution (with theta_l)
-
-  - Use samples to compute approx. ELBO (our loss) and store computational graph
-
-  - Estimate gradient of negative ELBO with backprop / autograd
-
-  - Increment gradient-based optimizer (adam) to find updated dist. params (theta_l + 1)
-
-  - Stop when converged to dist. params that minimize negative ELBO
-
-
-Result is optimal params for proposal distribution that minimizes KL divergence with posterior
-
-Fast alternate version: xx
-
-
-### code implementations
+### code implementation
 
 Short example ... tensorflow
 
@@ -116,21 +122,21 @@ Stan, PyMC, Pyro, NumPyro, Edward2
 
 ### reference documentation
 
-An Introduction to Variational Methods for Graphical Models (Michael Jordan, Zoubin Ghahramani, Tommi S. Jaakkola and Lawrence K. Saul, 1999) 
-[[1]](https://www.researchgate.net/publication/226435002_An_Introduction_to_Variational_Methods_for_Graphical_Models)
+*An Introduction to Variational Methods for Graphical Models (Michael Jordan, Zoubin Ghahramani, Tommi S. Jaakkola and Lawrence K. Saul, 1999)*
+*[[1]](https://www.researchgate.net/publication/226435002_An_Introduction_to_Variational_Methods_for_Graphical_Models)*
 
-Automatic Variational Inference in Stan (Alp Kucukelbir, Rjesh Ranganath, Andrew Gelman and David Blei, 2017)
-[[2]](https://arxiv.org/abs/1506.03431)
+*Automatic Differentiation Variational Inference (Alp Kucukelbir, Rjesh Ranganath, Andrew Gelman and David Blei, 2016)*
+*[[2]](https://arxiv.org/abs/1506.03431)*
 
-Yes, but Did It Work?: Evaluating Variational Inference (Yuling Yao, Aki Vehtari, Daniel Sompson and Andrew Gelman, 2018)
-[[3]](https://arxiv.org/pdf/1802.02538.pdf)
+*Yes, but Did It Work?: Evaluating Variational Inference (Yuling Yao, Aki Vehtari, Daniel Sompson and Andrew Gelman, 2018)*
+*[[3]](https://arxiv.org/pdf/1802.02538.pdf)*
 
-Stochastic Variational Inference (Matt Hoffman, David M. Blei, Chong Wang and John Paisley, 2012)
-[[4]](https://arxiv.org/abs/1206.7051)
+*Stochastic Variational Inference (Matt Hoffman, David M. Blei, Chong Wang and John Paisley, 2012)*
+*[[4]](https://arxiv.org/abs/1206.7051)*
 
-Variational Inference: A Review for Statisticians (David M. Blei, Alp Kucukelbir, Job D. McAuliffe, 2028)
-[[5]](https://arxiv.org/pdf/1601.00670.pdf)
+*Variational Inference: A Review for Statisticians (David M. Blei, Alp Kucukelbir, Job D. McAuliffe, 2028)*
+*[[5]](https://arxiv.org/pdf/1601.00670.pdf)*
 
-Variational Inference Practical Walkthrough (Minh-Ngoc Tran, 2021)
-[[6]](https://arxiv.org/pdf/2103.01327.pdf)
+*A Practical Tutorial on Variational Bayes (Minh-Ngoc Tran, 2021)*
+*[[6]](https://arxiv.org/pdf/2103.01327.pdf)*
 

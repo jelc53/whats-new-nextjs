@@ -103,18 +103,93 @@ The result is a proposal distribution $q \in \mathcal{Q}$ that minimizes the KL 
 
 ### code implementation
 
-Short example ... tensorflow
+In this section we tackle a simple example (where we know the analytical solution) and implement the solution in code with TensorFlow. 
 
-```python
-import numpy as np
+**Problem statement**: xx
 
-def main():
-    # print statement to console
-    print("Our code looks great!")
+**Math x**: xx
 
-if __name__ == "__main__":
-    main()
-```
+**Code x**: xx
+
+- import libraries, generate dataset from true model
+
+    ```python
+    import silence_tensorflow.auto
+    import tensorflow_probability as tfp
+    import tensorflow as tf
+
+    # true solution
+    mu_true = 4.0
+    sigma_true = 2.0
+
+    # generate data from true model
+    N = 100  # number of samples
+    X = tfp.distributions.Normal(loc=mu_true, scale=sigma_true)
+    dataset = X.sample(N)
+    ```
+    
+- set priors and evaluate analytical solution
+
+    ```python
+    # priors
+    mu_0 = 4.2
+    sigma_0 = 0.3  # medium confidence
+
+    # analytical solution
+    sigma_fix = sigma_true
+    mu_N = (sigma_fix **2 + mu_0 + sigma_0**2 * tf.reduce_sum(dataset)) / (sigma_fix**2 + N * sigma_0**2)
+    sigma_N = (sigma_0 * sigma_fix) / tf.sqrt(sigma_fix**2 + N * sigma_0**2)
+    # check mu_N and sigma_N closely approximate our true solution!
+    ```
+
+- define joint log probability and surrogate models needed to evaluate elbo
+
+    ```python
+    # define generator needed to define joint probability
+    def generative_model(mu_0, sigma_0, sigma_fix, n_samples):
+        mu = yield tfp.distributions.JointDistributionCoroutine.Root(
+            tfp.distributions.Normal(loc=mu_0, scale=sigma_0, name="mu")
+        )
+        X = yield tfp.distributions.Normal(loc=mu * tf.ones(n_samples), scale=sigma_fix, name="X")
+
+    # define joint probability model
+    model_joint = tfp.distributions.JointDistributionCoroutineAutoBatched(lambda : generative_model(mu_0, sigma_0, sigma_fix, N))
+    # can call model_joint.sample() to generate samples from joint posterior
+
+    # define joint log probability function for given mu [log p(mu, X=D)]
+    model_joint_log_prob_fixed_data = lambda mu: model_joint.log_prob(mu, datatset)
+    # can call model_joint_log_prob_fixed_data(3.0) to evaluate joint log prob of some mu given our dataset
+
+    # define surrogate model [q(mu)]
+    mu_S = tf.Variable(mu_0, name="mu surrogate")
+    sigma_S = tfp.util.TransformedVariable(sigma_0, bijector=tfp.bijectors.Softplus(), name="sigma surrogate")
+    surrogate_posterior = tfp.distributions.Normal(loc=mu_S, scale=sigma_S, name="surrogate posterior")
+    ```
+
+- run optimization to find variational inference numerical solution
+
+    ```python
+    # evaluate negative elbo and compute computational graph 
+    with tf.GradientTape() as g:
+        samples = surrogate_posterior.sample(3)
+        neg_elbo = - tf.reduce_mean(model_joint_log_prob_fixed_data(samples) - surrogate_posterior.log_prob(samples))
+
+    # derive gradient from neg_elbo computational graph (autodiff)
+    # this is the direction we need to move our mu_S and sigma_S to find the minimum negative elbo
+    g.gradient(neg_elbo, surrogate_posterior.trainable_variables)
+
+    # execute optimization to find (u_S*, sigma_S*)
+    tfp.vi.fit_surrogate_posterior(
+        target_log_prob_fn = model_joint_log_prob_fixed_data,
+        surrogate_posterior = surrogate_posterior,
+        optimizer = tf.optimizers.Adam(0.1),  # learning rate = 0.1
+        num_steps = 1000, 
+        sample_size = 100,  # num samples we use to approx elbo
+    )
+
+    # sense check that our variational inference numerical solution mu_S, sigma_S 
+    # approximately equals the analytical solution mu_N, sigma_N 
+    ```
 
 Table or just description of the different implementations ...
 Stan, PyMC, Pyro, NumPyro, Edward2

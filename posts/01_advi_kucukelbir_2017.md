@@ -43,7 +43,7 @@ Bayesian inference requires us to find a way to solve for $p(\theta|X)$, the pos
 The idea behind VI is to look for a distribution $q(\theta)$ that can be a surrogate (tractable approximation) for our true posterior $p(\theta|X)$. We do this by first proposing a family of distributions $\mathcal{Q}$ and then iteratively searching for the optimal set of parameters $\phi$ (i.e. a specific member of the family) such that $q(\theta ; \phi) \in \mathcal{Q}$ best approximates $p(\theta|X)$. Inference now amounts to solving the following optimization problem:
 
 $$ 
-q^*(\theta) = \mathop{\arg \min}\limits_{q(\theta) \in \mathcal{D}} KL(q(\theta)||p(\theta|X)) 
+q^*(\theta) = \mathop{\arg \min}\limits_{q(\theta) \in \mathcal{Q}} KL(q(\theta)||p(\theta|X)) 
 $$
 
 However, this objective function as-is would require us to directly compute the Kullback-Leibler (KL) Divergence which is often intractable. In particular, the evidence term $\log p(X)$ in the KL equation below is the reason we sought out numerical methods like MCMC or VI in the first place.
@@ -101,15 +101,44 @@ The result is a proposal distribution $q \in \mathcal{Q}$ that minimizes the KL 
 *Stochastic ADVI*: While vanilla ADVI is already lightening fast compared with MCMC sampling methods, we can further speed-up the algorithm by estimating the gradient of the negative ELBO with only a subset of the observed data $X_i$. As with many stochastic algorithms, this approach reduces time-per-iteration at the cost of some error in the gradient direction at each step. On average convergence with Stochastic ADVI is faster and we are still guaranteed to find the optimal distribution $q^* \in \mathcal{Q}$.
 
 
-### code implementation
+### worked example
 
 In this section we tackle a simple example (where we know the analytical solution) and implement the solution in code with TensorFlow. 
 
-**Problem statement**: xx
+**Problem statement**: Want to find the posterior of a normal distribution with unknown mean $p(\mu \mid X=D)$.
 
-**Math x**: xx
+![Directed graphical model for our worked example](/imgs/vi-worked-example.png)
 
-**Code x**: xx
+Note, here $\mu$ is our unknown parameter which we referred to generically as $\theta$ in previous sections.
+
+**Math formulation**: Propose a parameter surrogate distribution $q(\mu)=N\left(\mu ; \mu_{s}, \sigma_{s}\right)$, where $\mu_{s}$ and $\sigma_{s}$ are learnable parameters we optimise.
+
+Want to find parameters of surrogate $q(\mu)$ that minimizes our "loss" $\mathcal{L}\left(\mu_{s}, \delta_{s}\right)$ which we define to be the negative ELBO.
+
+$$
+\begin{aligned}
+q(\mu)^{*}= & \operatorname{argmin}-E L B O \\
+& q(\mu) \in Q \\
+\mu_{s}^{*}, \sigma_{s}^{*}= & \underset{\mu_{s}, \sigma_{s}>0}{\operatorname{argmin}-\mathbb{E}}\left[\log \frac{p(\mu, X=D)}{q(\mu)}\right]
+\end{aligned}
+$$
+
+While typically not possible to evaluate this expectation (ELBO) directly, we can approximate by sampling (eg. $L=10,000$ ) from our surrogate $q(\mu)$.
+
+$$
+-\mathcal{L}\left(\mu_{s}, \sigma_{s}\right) \underset{\text{LLN}}{\approx}-\frac{1}{L} \sum_{l=0}^{L-1} q\left(\mu=\mu^{[l]}\right) \cdot \log \frac{P\left(\mu=\mu^{[l]}, X=D\right)}{q\left(\mu=\mu^{[l]}\right)}
+$$
+
+Having picked a surrogate $q(\mu)$ and gernerated our samples, we can now evaluate every part of this ELBO approximation ! As we do this, we want to build store each step to create a computational graph that we can use to derive loss gradients (backpropagation).
+
+$$
+\frac{\partial-\mathcal{L}\left(\mu_{s}, \sigma_{s}\right)}{\partial \mu_{s}}=\ldots \quad \quad \frac{\partial-\mathcal{L}\left(\mu_{s}, \sigma_{s}\right)}{\partial \sigma_{s}}=\ldots
+$$
+
+Finally, once we have gradients we can use a gradient-based optimizer (egg. Adam) to find our optimal parameters $\mu_{s}^{[j]}, \sigma_{s}^{[j]} \underset{j \rightarrow \infty}{\longrightarrow} \mu_{s}^{*}, \sigma_{s}^{*}$.
+
+
+**Code implementation**: TensorFlow autodiff and distribution libraries used to reproduce math formulation.
 
 - import libraries, generate dataset from true model
 
@@ -191,8 +220,26 @@ In this section we tackle a simple example (where we know the analytical solutio
     # approximately equals the analytical solution mu_N, sigma_N 
     ```
 
-Table or just description of the different implementations ...
-Stan, PyMC, Pyro, NumPyro, Edward2
+
+### probabilistic programming languages
+Here we consider only the Probabilistic Programming Languages (PPLs) that offer 
+Variational Inference implementations as well as a python development interface, 
+including Stan, PyMC, Pyro, Edward2 and NumPyro.
+
+While most of these languages offer the full range of MCMC sampling and model 
+evaluation methods for bayesian inference, they differ substantially in their 
+choice of backend (= host language they are compiled to). This produces 
+differences in stability and speed of auto-differentiation, vectorization 
+and hardware acceleration (multiple cpu or gpu cores).
+
+
+|                        | Stan                                    | PyMC                                         | Pyro                                    | Edward2                                        | NumPyro                                          |
+|-------------------     |--------------------                     |----------------------                        |----------------------                   | ----------------------                         |----------------------------                      |
+| backend libraries      | Home-built, compiled in C++             | Theano/Aesara with JAX integration           | Facebook's PyTorch framework (2016)     | Google's TensorFlow framework (2015)           | Google's JAX framework (2018)                    |
+| ease of use            | Beautiful declarative language          | Great support community, very pythonic       | Need familiarity with PyTorch           | Requires familiarity with TensorFlow           | Pyro interface but with access to JAX libraries  |
+| hardware acceleration  | C++ multi-thread & MPI support          | JAX vectorization & CPU/GPU parallel support | CPU/GPU parallel support                | CPU/GPU parallel support                       | JAX vectorization & CPU/GPU parallel support     |
+| other comments         | Best documentation, good for small data | Since 4.0 upgrade, best MCMC option          | Best for SVI and BNNets, large datasets | Some integration for JAX, not well adopted yet | Leightweight and fastest HMC-NUTS implementation |
+
 
 
 ### reference documentation

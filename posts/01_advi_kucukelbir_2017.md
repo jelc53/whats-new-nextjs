@@ -129,13 +129,13 @@ $$
 -\mathcal{L}\left(\mu_{s}, \sigma_{s}\right) \underset{\text{LLN}}{\approx}-\frac{1}{L} \sum_{l=0}^{L-1} q\left(\mu=\mu^{[l]}\right) \cdot \log \frac{P\left(\mu=\mu^{[l]}, X=D\right)}{q\left(\mu=\mu^{[l]}\right)}
 $$
 
-Having picked a surrogate $q(\mu)$ and gernerated our samples, we can now evaluate every part of this ELBO approximation ! As we do this, we want to build store each step to create a computational graph that we can use to derive loss gradients (backpropagation).
+Having picked a surrogate $q(\mu)$ and gernerated our samples, we can now evaluate every part of this ELBO approximation ! As we do this, we want to build store each step to create a computational graph that we can use to derive loss gradients (backprop).
 
 $$
 \frac{\partial-\mathcal{L}\left(\mu_{s}, \sigma_{s}\right)}{\partial \mu_{s}}=\ldots \quad \quad \frac{\partial-\mathcal{L}\left(\mu_{s}, \sigma_{s}\right)}{\partial \sigma_{s}}=\ldots
 $$
 
-Finally, once we have gradients we can use a gradient-based optimizer (egg. Adam) to find our optimal parameters $\mu_{s}^{[j]}, \sigma_{s}^{[j]} \underset{j \rightarrow \infty}{\longrightarrow} \mu_{s}^{*}, \sigma_{s}^{*}$.
+Finally, once we have gradients we can use a gradient-based optimizer (eg. Adam) to find our optimal parameters $\mu_{s}^{[j]}, \sigma_{s}^{[j]} \underset{j \rightarrow \infty}{\longrightarrow} \mu_{s}^{*}, \sigma_{s}^{*}$.
 
 
 **Code implementation**: TensorFlow autodiff and distribution libraries used to reproduce math formulation.

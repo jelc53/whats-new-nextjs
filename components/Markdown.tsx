@@ -65,8 +65,8 @@ function Markdown({ content } : {content : any}) {
                                         children={codeText}
                                         language={match[1]}
                                         showLineNumbers={true}
-                                        wrapLines={true}
-                                        wrapLongLines={true}
+                                        wrapLines={false}
+                                        wrapLongLines={false}
                                         style={currentTheme === 'dark' ? materialOceanic : materialLight}
                                         customStyle={{
                                             marginTop: "-1.5rem", 

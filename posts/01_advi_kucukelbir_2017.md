@@ -117,9 +117,9 @@ Want to find parameters of surrogate $q(\mu)$ that minimizes our "loss" $\mathca
 
 $$
 \begin{aligned}
-q(\mu)^{*}= & \operatorname{argmin}-E L B O \\
+q(\mu)^{\text{*}}= & \operatorname{argmin}-E L B O \\
 & q(\mu) \in Q \\
-\mu_{s}^{*}, \sigma_{s}^{*}= & \underset{\mu_{s}, \sigma_{s}>0}{\operatorname{argmin}-\mathbb{E}}\left[\log \frac{p(\mu, X=D)}{q(\mu)}\right]
+\mu_{s}^{\*}, \sigma_{s}^{\*}= & \underset{\mu_{s}, \sigma_{s}>0}{\operatorname{argmin}-\mathbb{E}}\left[\log \frac{p(\mu, X=D)}{q(\mu)}\right]
 \end{aligned}
 $$
 
@@ -135,7 +135,7 @@ $$
 \frac{\partial-\mathcal{L}\left(\mu_{s}, \sigma_{s}\right)}{\partial \mu_{s}}=\ldots \quad \quad \frac{\partial-\mathcal{L}\left(\mu_{s}, \sigma_{s}\right)}{\partial \sigma_{s}}=\ldots
 $$
 
-Finally, once we have gradients we can use a gradient-based optimizer (eg. Adam) to find our optimal parameters $\mu_{s}^{[j]}, \sigma_{s}^{[j]} \underset{j \rightarrow \infty}{\longrightarrow} \mu_{s}^{*}, \sigma_{s}^{*}$.
+Finally, once we have gradients we can use a gradient-based optimizer (eg. Adam) to find our optimal parameters $\mu_{s}^{[j]}, \sigma_{s}^{[j]} \underset{j \rightarrow \infty}{\longrightarrow} \mu_{s}^{\*}, \sigma_{s}^{\*}$.
 
 
 **Code implementation**: TensorFlow autodiff and distribution libraries used to reproduce math formulation.

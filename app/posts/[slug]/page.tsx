@@ -27,7 +27,7 @@ const SketchPage = (props: any) => {
   const post = getPostContent(slug);
   // console.log(post);
     return (
-      <div className="flex flex-col items-center justify-center mx-8 md:mx-10 mt-20 lg:mx-[10vw]">
+      <div className="flex flex-col items-center justify-center mx-4 md:mx-8 mt-20 lg:mx-[8vw]">
         <div className="text-center">
           <Image 
               width={0}

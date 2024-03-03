@@ -116,11 +116,11 @@ Note, here $\mu$ is our unknown parameter which we referred to generically as $\
 Want to find parameters of surrogate $q(\mu)$ that minimizes our "loss" $\mathcal{L}\left(\mu_{s}, \delta_{s}\right)$ which we define to be the negative ELBO.
 
 $$
-\begin{aligned}
-q(\mu)^{\text{*}}= & \operatorname{argmin}-E L B O \\
-& q(\mu) \in Q \\
-\mu_{s}^{\*}, \sigma_{s}^{\*}= & \underset{\mu_{s}, \sigma_{s}>0}{\operatorname{argmin}-\mathbb{E}}\left[\log \frac{p(\mu, X=D)}{q(\mu)}\right]
-\end{aligned}
+q(\mu)^{\text{*}} = \mathop{\arg \min}\limits_{q(\mu) \in \mathcal{Q}} - E L B O
+$$
+
+$$
+\mu_{s}^{\*}, \sigma_{s}^{\*} = \mathop{\arg \min}\limits_{\mu_{s}, \sigma_{s}>0} -\mathbb{E}_{\mu \sim q(\mu)} \left[\log \frac{p(\mu, X=D)}{q(\mu)}\right]
 $$
 
 While typically not possible to evaluate this expectation (ELBO) directly, we can approximate by sampling (eg. $L=10,000$ ) from our surrogate $q(\mu)$.

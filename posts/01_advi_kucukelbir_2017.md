@@ -1,12 +1,12 @@
 ---
-sketchTitle: Variational Inference
+sketchTitle: Auto-Diff Variational Inference
 sketchAuthor: "Julian Cooper, 30th Oct. 2023"
 sketchPublishDate: "2023-09-15"
 articleTitle: Automatic Differentiation Variational Inference
 articleAuthor: Alp Kucukelbir
 articlePublishDate: "2017-01-01"
 category: Statistics
-bannerImage: /imgs/neuromancer_headset.png
+bannerImage: /imgs/vi_banner_img.png
 description: "Variational Inference is used to approximate joint posterior distributions. This sketch summarizes the method, its pros and cons, and existing   implementations."
 ---
 
@@ -71,7 +71,7 @@ $$
 ELBO(q) \ge \log \frac{\mathbb{E}_q[p(\theta, X)]}{\mathbb{E}_q[q(\theta)]} 
 $$
 
-![Sketch of optimization solved by Variational Inference algorithm](/imgs/variational-inference-optimization.png)
+![Sketch of optimization solved by Variational Inference algorithm](/imgs/vi_optimization_schematic.png)
 
 
 ### stan advi algorithm
@@ -107,7 +107,7 @@ In this section we tackle a simple example (where we know the analytical solutio
 
 **Problem statement**: Want to find the posterior of a normal distribution with unknown mean $p(\mu \mid X=D)$.
 
-![Directed graphical model for our worked example](/imgs/vi-worked-example.png)
+![Directed graphical model for our worked example](/imgs/vi_worked_example.png)
 
 Note, here $\mu$ is our unknown parameter which we referred to generically as $\theta$ in previous sections.
 

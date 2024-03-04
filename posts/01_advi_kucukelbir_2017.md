@@ -6,7 +6,7 @@ articleTitle: Automatic Differentiation Variational Inference
 articleAuthor: Alp Kucukelbir
 articlePublishDate: "2017-01-01"
 category: Statistics
-bannerImage: /imgs/vi_banner_img.png
+bannerImage: /imgs/vi_banner_image_2.jpg
 description: "Variational Inference is used to approximate joint posterior distributions. This sketch summarizes the method, its pros and cons, and existing   implementations."
 ---
 
@@ -46,30 +46,27 @@ $$
 q^*(\theta) = \mathop{\arg \min}\limits_{q(\theta) \in \mathcal{Q}} KL(q(\theta)||p(\theta|X)) 
 $$
 
-However, this objective function as-is would require us to directly compute the Kullback-Leibler (KL) Divergence which is often intractable. In particular, the evidence term $\log p(X)$ in the KL equation below is the reason we sought out numerical methods like MCMC or VI in the first place.
+However, this objective function as-is would require us to directly compute the Kullback-Leibler (KL) Divergence which is often intractable. In particular, the marginal likelihood term (also referred to as "model evidence") $\log p(X)$ in the KL equation below is the reason we sought out numerical methods like MCMC or VI in the first place.
 
 $$ 
-KL(q(\theta)||p(\theta|X)) = \mathbb{E}_q[\log q(\theta)] - \mathbb{E}_q[\log p(\theta, X)] + \log p(X) 
+KL(q(\theta)||p(\theta|X)) = \mathbb{E}_q[\log q(\theta)] - \mathbb{E}_q[\log p(\theta, X)] + \log p(X)
 $$
 
-Instead, we want to re-formulate the objective function to something equivalent that we know how to compute: the evidence lower bound, or ELBO. 
+Instead, we want to re-formulate the objective function to something equivalent that we know how to compute: the Evidence Lower Bound, or *ELBO*. The ELBO is the negative KL Divergence between the variational distribution and true posterior $KL(q(\theta)||p(\theta))$ plus the expected log likelihood of the data $\mathbb{E}_q[\log p(X)]$.
 
 $$ 
-ELBO(q) = \mathbb{E}_q[\log p(X|\theta)] - KL(q(\theta)||p(\theta))
+ELBO(q) = - KL(q(\theta)||p(\theta)) + \mathbb{E}_q[\log p(X|\theta)]
 $$
 
-The ELBO is the negative KL Divergence between the variational distribution and true posterior $KL(q(\theta)||p(\theta))$ plus the expected log likelihood of the data $\mathbb{E}_q[\log p(X)]$. Maximizing this quantity is equivalent to minimizing the KL Divergence from our original optimization objective function, but now with some basic logarithm arithmetic [[6]](#reference-documentation) we can formulate without the $\log p(X)$ term.
+Maximizing this quantity is equivalent to minimizing the KL Divergence from our original optimization objective function, but now with some basic logarithm arithmetic [[6]](#reference-documentation) we can formulate without the problematic $\log p(X)$ term.
  
 $$ 
 ELBO(q) = \mathbb{E}_q[\log p(\theta, X)] - \mathbb{E}_q[\log q(\theta)] 
 $$
 
-> **Note**: Maximizing the ELBO represents choosing parameters $\phi(X)$ for $q$ that optimally trade-off between fitting surrogate model to observed data (accuracy) and encouraging the model to not diverge too far from our prior distribution (regularization). 
+> **NOTE**: Maximizing the ELBO represents choosing parameters $\phi(X)$ for $q$ that optimally trade-off between fitting surrogate model to observed data (accuracy) and encouraging the model to not diverge too far from our prior distribution (regularization). 
 
-Another property of the ELBO is that it lower-bounds the log evidence $\log p(X) \ge ELBO(q)$ for any $q(\theta)$. This explains the name. To see this, notice that $ \log p(X) = KL(q(\theta)||p(\theta|X)) + ELBO(q)$ and recall that $KL(.) \ge 0$. 
-$$ 
-ELBO(q) \ge \log \frac{\mathbb{E}_q[p(\theta, X)]}{\mathbb{E}_q[q(\theta)]} 
-$$
+Another property of the ELBO is that it lower-bounds the log evidence $\log p(X) \ge ELBO(q)$ for any $q(\theta)$. This explains the name! To see this, notice that $ \log p(X) = KL(q(\theta)||p(\theta|X)) + ELBO(q)$ and recall that $KL(.) \ge 0$. 
 
 ![Sketch of optimization solved by Variational Inference algorithm](/imgs/vi_optimization_schematic.png)
 

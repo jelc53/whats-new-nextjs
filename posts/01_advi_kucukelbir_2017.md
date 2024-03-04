@@ -1,5 +1,5 @@
 ---
-sketchTitle: Auto-Diff Variational Inference
+sketchTitle: Auto-Differentiation Variational Inference
 sketchAuthor: "Julian Cooper, 30th Oct. 2023"
 sketchPublishDate: "2023-09-15"
 articleTitle: Automatic Differentiation Variational Inference

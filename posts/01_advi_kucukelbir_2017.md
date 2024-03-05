@@ -46,13 +46,13 @@ $$
 q^*(\theta) = \mathop{\arg \min}\limits_{q(\theta) \in \mathcal{Q}} KL(q(\theta)||p(\theta|X)) 
 $$
 
-However, this objective function as-is would require us to directly compute the Kullback-Leibler (KL) Divergence which is often intractable. In particular, the marginal likelihood term (also referred to as "model evidence") $\log p(X)$ in the KL equation below is the reason we sought out numerical methods like MCMC or VI in the first place.
+However, this objective function as-is would require us to directly compute the Kullback-Leibler (KL) divergence which is often intractable. In particular, the marginal likelihood term (also referred to as "model evidence") $\log p(X)$ in the KL equation below is the reason we sought out numerical methods like MCMC or VI in the first place.
 
 $$ 
 KL(q(\theta)||p(\theta|X)) = \mathbb{E}_q[\log q(\theta)] - \mathbb{E}_q[\log p(\theta, X)] + \log p(X)
 $$
 
-Instead, we want to re-formulate the objective function to something equivalent, and that we know how to compute: the Evidence Lower Bound, or *ELBO*. The ELBO is the negative KL Divergence between the variational distribution and true posterior $KL(q(\theta)||p(\theta|X))$ plus the marginal likelihood term $\log p(X)$. Since the $\log p(X)$ term is a constant with respect to $q(\theta)$, we know that maximizing this quantity is equivalent to minimizing the KL Divergence from our original optimization. Moreover, if we substitute for the KL Divergence definition (above), we can remove the problematic $\log p(X)$ term from our objective function!
+Instead, we want to re-formulate the objective function to something equivalent, and that we know how to compute: the Evidence Lower Bound, or *ELBO*. The ELBO is the negative KL divergence between the variational distribution and true posterior $KL(q(\theta)||p(\theta|X))$ plus the marginal likelihood term $\log p(X)$. Since the $\log p(X)$ term is a constant with respect to $q(\theta)$, we know that maximizing this quantity is equivalent to minimizing the KL divergence from our original optimization. Moreover, if we substitute for the KL definition (above), we can remove the problematic $\log p(X)$ term from our objective function!
 
 $$ 
 \begin{aligned}
@@ -62,17 +62,21 @@ ELBO(q) =& - KL(q(\theta)||p(\theta|X)) + \log p(X) \\\\ & \\\\
 \end{aligned}
 $$
 
-Further ...
+![Sketch of optimization solved by Variational Inference algorithm](/imgs/vi_optimization_schematic.png)
 
 
+By further examining the ELBO we can build intuition about the optimal variational density. In the working below, we rewrite the ELBO as the sum of the negative KL divergence between the prior $p(\theta)$ and surrogate $q(\theta)$ and the expected log likelihood of the data. The first term encourages densities close to the prior (minimize negative divergence) while the second encourages explaining observed data $X$. Maximizing our ELBO therefore means balancing these two competing objectives.
  
 $$ 
-ELBO(q) = \mathbb{E}_q[\log p(\theta, X)] - \mathbb{E}_q[\log q(\theta)] 
+\begin{aligned}
+ELBO(q) =& - \mathbb{E}_q[\log q(\theta)] + \mathbb{E}_q[\log p(\theta, X)] \\\\ & \\\\
+        =& - (\mathbb{E}_q[\log q(\theta)] - \mathbb{E}_q[\log p(\theta)]) + \mathbb{E}_q[\log p(X|\theta)]\\\\ & \\\\
+        =& - (\sum q(\theta) \log \frac{q(\theta)}{p(\theta)}) + \mathbb{E}_q[\log p(X|\theta)]\\\\ & \\\\
+        =& - KL(q(\theta)||p(\theta)) + \mathbb{E}_q[\log p(X|\theta)]
+\end{aligned}
 $$
 
 Another property of the ELBO is that it lower-bounds the log evidence $\log p(X) \ge ELBO(q)$ for any $q(\theta)$. This explains the name! To see this, notice that $ \log p(X) = KL(q(\theta)||p(\theta|X)) + ELBO(q)$ and recall that $KL(.) \ge 0$. 
-
-![Sketch of optimization solved by Variational Inference algorithm](/imgs/vi_optimization_schematic.png)
 
 
 ### Stan ADVI Algorithm
@@ -85,15 +89,15 @@ The following outlines the Automatic Differentiation Variational Inference (ADVI
 
 2. Re-write ELBO expectation as a numerical approximation by sampling from our joint posterior and taking the average (LLN).
 
-3. For each optimization step ($\phi_l$):
+3. For each optimization step ($\phi^{[j]}$):
 
-      - Sample N times from current proposal distribution $q(\theta ; \phi_l)$
+      - Sample L times from current proposal distribution $\theta_l \propto q(\theta ; \phi^{[j]})$
 
       - Use samples to compute approximate ELBO (our loss) and store computational graph
 
       - Estimate gradient of negative ELBO with backpropagation (stan's autograd library)
 
-      - Increment gradient-based optimizer (adam) to find updated set of distribution parameters $\phi_{l+1}$
+      - Increment gradient-based optimizer (adam) to find updated set of distribution parameters $\phi^{[j+1]}$
 
       - Stop algorithm when converged to distribution $q^* = q(\theta ; \phi^*)$ within family $Q$ that maximizes the ELBO
 
@@ -148,7 +152,7 @@ $$
 While typically not possible to evaluate this expectation (ELBO) directly, we can approximate by sampling (eg. $L=10,000$ ) from our surrogate $q(\mu)$.
 
 $$
--\mathcal{L}\left(\mu_{s}, \sigma_{s}\right) \underset{\text{LLN}}{\approx}-\frac{1}{L} \sum_{l=0}^{L-1} q\left(\mu=\mu^{[l]}\right) \cdot \log \frac{P\left(\mu=\mu^{[l]}, X=D\right)}{q\left(\mu=\mu^{[l]}\right)}
+-\mathcal{L}\left(\mu_{s}, \sigma_{s}\right) \underset{\text{LLN}}{\approx}-\frac{1}{L} \sum_{l=0}^{L-1} q\left(\mu=\mu_{l}\right) \cdot \log \frac{p\left(\mu=\mu_{l}, X=D\right)}{q\left(\mu=\mu_{l}\right)}
 $$
 
 Having picked a surrogate $q(\mu)$ and gernerated our samples, we can now evaluate every part of this ELBO approximation ! As we do this, we want to build store each step to create a computational graph that we can use to derive loss gradients (backprop).

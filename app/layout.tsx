@@ -19,8 +19,8 @@ export default function RootLayout({
             __html: `
               MathJax.Hub.Config({
                 tex2jax: {
-                  inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-                  displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+                  inlineMath: [ ['$', '$'] ],
+                  displayMath: [ ['$$', '$$'] ],
                   processEscapes: true
                 },
               });

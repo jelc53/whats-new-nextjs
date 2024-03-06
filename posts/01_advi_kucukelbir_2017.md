@@ -22,16 +22,16 @@ description: "Variational Inference is used to approximate joint posterior distr
 
 Markov Chain Monte Carlo (MCMC) sampling techniques - such as Metropolis-Hastings, Gibbs Sampling, and Hamiltonian Monte Carlo - represent the most common approach for approximating a posterior distribution that is analytically intractable. These techniques guarantee convergence to the true posterior given sufficient data. Variational Inference (VI), by contrast, is an alternative technique that almost certainly will *not* converge to the true posterior. So why then do we care about VI?
 
-The answer is simple: *speed to convergence*. With the exception of Gibbs Sampling (requires us to find conditional distributions for each parameter, often intractable), the VI algorithm is much faster than MCMC sampling techniques.
+The answer is simple: **speed to convergence**. With the exception of Gibbs Sampling (requires us to find conditional distributions for each parameter, often intractable), the VI algorithm is much faster than MCMC sampling techniques.
 
-Moreover, if we start with a good proposal distribution (more on this later), then we are likely to converge to a posterior "close to the true posterior. Unfortunately, it is difficult to know how close. While some accuracy bounds have been explored by Yao et al [[3]](#reference-documentation), in practice we normally also implement MCMC sampling to check the accuracy of our VI method. If our result is "close enough" for a given model formulation, we will then disregard the MCMC sampler in favour of the faster VI implementation and make the assumption that VI will continue to perform well on variations of our model with new data.   
+Moreover, if we start with a good proposal distribution (more on this later), then we are likely to converge to a surrogate "close to the true posterior". Unfortunately, it is difficult to know how close. While some accuracy bounds have been explored by Yao et al [[3]](#reference-documentation), in practice we normally also implement MCMC sampling to check the accuracy of our VI method. If our result is "close enough" for a given model formulation, we will then disregard the MCMC sampler in favour of the faster VI implementation and make the assumption that VI will continue to perform well on variations of our model with new data.   
 
 
 ### A Brief History
 
 Variational Inference, Laplace Approximation and Integrated Nested Laplace Approximation all belong to a family of techniques developed in the 1990s that seek to approximate an intractable bayesian posterior distribution with a simpler, tractable distribution. 
 
-Ihe first significant publication on VI applied to statistical inference was written in 1999 by Michael I. Jordan, Zoubin Ghahramani, Tommi S. Jaakkola and Lawrence K. Saul [[1]](#reference-documentation). Jordan et al introduced the idea that if one could find a well-chosen family of distributions, then inference could be reframed as an optimization problem where we search for the parameters (i.e. a specific member of this family) that minimize the Kullback-Leibler (KL) divergence between the true posterior and the proposed approximate distribution. 
+The first significant publication on VI applied to statistical inference was written in 1999 by Michael I. Jordan, Zoubin Ghahramani, Tommi S. Jaakkola and Lawrence K. Saul [[1]](#reference-documentation). Jordan et al introduced the idea that if one could find a well-chosen family of distributions, then inference could be reframed as an optimization problem where we search for the parameters (i.e. a specific member of this family) that minimize the Kullback-Leibler (KL) divergence between the true posterior and the proposed approximate distribution. 
 
 Kucukelbir et al brought the theory of VI into practice by implementing a version in code that leveraged Stan's Auto-Differentiation software library [[2]](#reference-documentation). 
 
@@ -40,7 +40,7 @@ Kucukelbir et al brought the theory of VI into practice by implementing a versio
 
 Bayesian inference requires us to find a way to solve for $p(\theta|X)$, the posterior distribution of the parameters $\theta$ given the observed data $X$. In practice, there are two ways to approach this problem: (i) simulation (MCMC techniques) or (ii) optimization (VI, INLA, etc.).
 
-The idea behind VI is to look for a distribution $q(\theta)$ that can be a surrogate (tractable approximation) for our true posterior $p(\theta|X)$. We do this by first proposing a family of distributions $\mathcal{Q}$ and then iteratively searching for the optimal set of parameters $\phi$ (i.e. a specific member of the family) such that $q(\theta ; \phi) \in \mathcal{Q}$ best approximates $p(\theta|X)$. Inference now amounts to solving the following optimization problem:
+The idea behind VI is to look for a distribution $q(\theta)$ that can be a surrogate (tractable approximation) for our true posterior $p(\theta|X)$. We do this by first proposing a family of distributions $\mathcal{Q}$ and then iteratively searching for the optimal set of parameters $\phi$ (i.e. a specific member of the family) such that $q(\theta ; \phi) \in \mathcal{Q}$ best approximates $p(\theta|X)$. Inference now amounts to solving the following optimization problem [[5]](#reference-documentation):
 
 $$ 
 q^*(\theta) = \mathop{\arg \min}\limits_{q(\theta) \in \mathcal{Q}} KL(q(\theta)||p(\theta|X)) 
@@ -65,18 +65,18 @@ $$
 ![Sketch of optimization solved by Variational Inference algorithm](/imgs/vi_optimization_schematic.png)
 
 
-By further examining the ELBO we can build intuition about the optimal variational density. In the working below, we rewrite the ELBO as the sum of the negative KL divergence between the prior $p(\theta)$ and surrogate $q(\theta)$ and the expected log likelihood of the data. The first term encourages densities close to the prior (minimize negative divergence) while the second encourages explaining observed data $X$. Maximizing our ELBO therefore means balancing these two competing objectives.
+By further examining the ELBO we can build intuition about the optimal variational density. In the working below, we rewrite the ELBO as the sum of the negative KL divergence between the prior $p(\theta)$ and surrogate $q(\theta)$ and the expected log likelihood of the data. The first term encourages densities close to the prior (minimize negative divergence) while the second encourages explaining observed data $X$. Maximizing our ELBO therefore means balancing these two competing objectives [[6]](#reference-documentation).
  
 $$ 
 \begin{aligned}
 ELBO(q) =& - \mathbb{E}_q[\log q(\theta)] + \mathbb{E}_q[\log p(\theta, X)] \\\\ & \\\\
         =& - (\mathbb{E}_q[\log q(\theta)] - \mathbb{E}_q[\log p(\theta)]) + \mathbb{E}_q[\log p(X|\theta)]\\\\ & \\\\
-        =& - (\sum q(\theta) \log \frac{q(\theta)}{p(\theta)}) + \mathbb{E}_q[\log p(X|\theta)]\\\\ & \\\\
+        =& - (\int q(\theta) \log \frac{q(\theta)}{p(\theta)} d\theta) + \mathbb{E}_q[\log p(X|\theta)]\\\\ & \\\\
         =& - KL(q(\theta)||p(\theta)) + \mathbb{E}_q[\log p(X|\theta)]
 \end{aligned}
 $$
 
-Another property of the ELBO is that it lower-bounds the log evidence $\log p(X) \ge ELBO(q)$ for any $q(\theta)$. This explains the name! To see this, notice that $ \log p(X) = KL(q(\theta)||p(\theta|X)) + ELBO(q)$ and recall that $KL(.) \ge 0$. 
+Another property of the ELBO is that it lower-bounds the log model evidence term $\log p(X) \ge ELBO(q)$ for any $q(\theta)$. This explains the name! To see this, notice that $ \log p(X) = KL(q(\theta)||p(\theta|X)) + ELBO(q)$ and recall that $KL(.) \ge 0$. Check out Massimiliano Patacchiola's excellent blogpost [[6]](#reference-documentation) for a more thorough derivation.
 
 
 ### Stan ADVI Algorithm
@@ -87,27 +87,27 @@ The following outlines the Automatic Differentiation Variational Inference (ADVI
 
 1. Pick a proposal distribution $q(\theta ; \phi)$ from our chosen family of distributions $\mathcal{Q}$.
 
-2. Re-write ELBO expectation as a numerical approximation by sampling from our joint posterior and taking the average (LLN).
+2. Re-write ELBO expectation as a numerical approximation by sampling from our joint posterior and taking the average (Law of Large Numbers, or LLN).
 
-3. For each optimization step ($\phi^{[j]}$):
+3. For each optimization step $j=1,2,3, ...$ we update our surrogate parameter(s) $\phi^{[j]}$:
 
-      - Sample L times from current proposal distribution $\theta_l \propto q(\theta ; \phi^{[j]})$
+      - Sample L times from current proposal distribution $\theta_l \sim q(\theta ; \phi^{[j]})$
 
-      - Use samples to compute approximate ELBO (our loss) and store computational graph
+      - Use samples to compute approximate negative ELBO (loss we want to minimize) and store computational graph
 
-      - Estimate gradient of negative ELBO with backpropagation (stan's autograd library)
+      - Estimate gradient of negative ELBO with backpropagation (Stan's autograd library)
 
-      - Increment gradient-based optimizer (adam) to find updated set of distribution parameters $\phi^{[j+1]}$
+      - Increment gradient-based optimizer (e.g. Adam) to find updated set of surrogate distribution parameter(s) $\phi^{[j+1]}$
 
-      - Stop algorithm when converged to distribution $q^* = q(\theta ; \phi^*)$ within family $Q$ that maximizes the ELBO
+4. Stop algorithm when converged to distribution $q^* = q(\theta ; \phi^*)$ within family $Q$ that minimizes the negative ELBO
 
-The result is a proposal distribution $q^* \in \mathcal{Q}$ that minimizes the KL divergence with the true posterior.
+The result is a surrogate distribution $q^* \in \mathcal{Q}$ that minimizes the KL divergence with the true posterior! 
 
 **Stochastic ADVI**: While vanilla ADVI is already lightening fast compared with MCMC sampling methods, we can further speed-up the algorithm by estimating the gradient of the negative ELBO with only a subset of the observed data $X_i$. As with many stochastic algorithms, this approach reduces time-per-iteration at the cost of some error in the gradient direction at each step. On average convergence with Stochastic ADVI is faster and we are still guaranteed to find the optimal distribution $q^* \in \mathcal{Q}$.
 
 
 ### Probabilistic Programming Languages
-The following section breifly introduces the Probabilistic Programming Languages (PPLs) that offer 
+The following section briefly introduces the Probabilistic Programming Languages (PPLs) that offer 
 Variational Inference implementations as well as a python development interface, 
 including Stan, PyMC, Pyro, Edward2 and NumPyro.
 
@@ -129,7 +129,7 @@ and hardware acceleration (multiple cpu or gpu cores).
 
 ### Worked Example
 
-In this section we tackle a simple example (where we know the analytical solution) and implement the solution in code with TensorFlow. 
+In this section we tackle a simple example (where we know the analytical solution) and implement the solution in code with TensorFlow [[7]](#reference-documentation). 
 
 **Problem statement**: Want to find the posterior of a normal distribution with unknown mean $p(\mu \mid X=D)$.
 
@@ -264,6 +264,8 @@ Finally, once we have gradients we can use a gradient-based optimizer (eg. Adam)
 *Variational Inference: A Review for Statisticians (David M. Blei, Alp Kucukelbir, Job D. McAuliffe, 2028)*
 *[[5]](https://arxiv.org/pdf/1601.00670.pdf)*
 
-*A Practical Tutorial on Variational Bayes (Minh-Ngoc Tran, 2021)*
-*[[6]](https://arxiv.org/pdf/2103.01327.pdf)*
+*Blog: Evidence, KL-divergence, and ELBO (Massimiliano Patacchiola, 2021)*
+*[[6]](https://mpatacchiola.github.io/blog/2021/01/25/intro-variational-inference.html)*
 
+*Video: Variational Inference by Automatic Differentiation in TensorFlow Probability (Felix Kohler, 2022)*
+*[[7]](https://www.youtube.com/watch?v=dxwVMeK988Y)*

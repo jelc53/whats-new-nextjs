@@ -24,27 +24,29 @@ const DynamicReactMarkdown = dynamic(() => import('react-markdown') as Promise<{
 function Markdown({ content } : {content : any}) {
     const {systemTheme, theme, setTheme} = useTheme();
     const currentTheme = theme === "system" ? systemTheme : theme;
-    // const [isMounted, setIsMounted] = useState(false);
-    
-    // useEffect(() => {
-    //     setIsMounted(true);
-    //     // manually trigger MathJax to process the page again
-    //     setTimeout(() => {
-    //         if (window.MathJax) {
-    //             window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
-    //         }
-    //     }, 100);
-    // }, []);
 
-    // if (!isMounted) {
-    //     return null; // disable server-side rendering
-    // }
+    useEffect(() => { // this function handles math typesetting
+        const renderMath = () => {
+            if (window.MathJax) {
+                window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
+            }
+        };
 
-    useEffect(() => {
-        if (window.MathJax) {
-            window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
-        }
-    }, []);
+        // call the render function initially
+        renderMath();
+
+        // set up a mutation observer to monitor changes in the document
+        const observer = new MutationObserver(renderMath);
+        observer.observe(document.body, {
+            childList: true, // observe direct children
+            subtree: true, // and lower descendants too
+            characterData: true // and text changes
+        });
+
+        // cleanup the observer on component unmount
+        return () => observer.disconnect();
+    }, [content]); // re-run the effect whenever the content changes
+
     
     return (
         <div className={`${currentTheme === 'dark' ? 'dark' : ''}`}>
@@ -65,8 +67,8 @@ function Markdown({ content } : {content : any}) {
                                         children={codeText}
                                         language={match[1]}
                                         showLineNumbers={true}
-                                        wrapLines={true}
-                                        wrapLongLines={true}
+                                        wrapLines={false}
+                                        wrapLongLines={false}
                                         style={currentTheme === 'dark' ? materialOceanic : materialLight}
                                         customStyle={{
                                             marginTop: "-1.5rem", 

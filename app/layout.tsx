@@ -9,7 +9,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
+  
   return (
     <html lang="en">
       <head>
@@ -19,9 +19,10 @@ export default function RootLayout({
             __html: `
               MathJax.Hub.Config({
                 tex2jax: {
-                  inlineMath: [ ['$','$'] ],
+                  inlineMath: [ ['$', '$'] ],
+                  displayMath: [ ['$$', '$$'] ],
                   processEscapes: true
-                }
+                },
               });
             `,
           }}

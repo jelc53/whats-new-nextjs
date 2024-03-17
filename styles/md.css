@@ -1,6 +1,7 @@
 /* Dark mode specific styles */
-.dark .markdown-content {
-    color: white;
+.dark .markdown-content th,
+.dark .markdown-content td {
+  color: white;
 }
 
 .dark .markdown-content h1,
@@ -10,38 +11,74 @@
 .dark .markdown-content h5,
 .dark .markdown-content h6,
 .dark .markdown-content strong {
-    color: white;
+  color: white;
 }
 
 .dark .markdown-content a {
-    color: cyan;  /* adjust link color for dark mode */
+  color: cyan;
+  /* adjust link color for dark mode */
 }
 
 /* ... add any other markdown specific styles for dark mode ... */
 
 .blog-pre {
-    margin-bottom: 3em !important;
-    /* -webkit-box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 35px -23px 2px -16px rgba(0, 0, 0, 0); */
-    /* box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 35px -23px 2px -16px rgba(0, 0, 0, 0); */
-    position: relative;
+  margin-bottom: 3em !important;
+  /* -webkit-box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 35px -23px 2px -16px rgba(0, 0, 0, 0); */
+  /* box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 35px -23px 2px -16px rgba(0, 0, 0, 0); */
+  position: relative;
 }
 
 .code-container {
-    position: relative;
-    overflow: visible;
+  position: relative;
+  overflow: visible;
 }
 
 .code-copy-btn {
-    z-index: 1000; 
-    color: white;
-    position: absolute;
-    right: -6px;
-    top: 16px;
-    font-size: 1.5em;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
+  z-index: 1000;
+  color: white;
+  position: absolute;
+  right: -6px;
+  top: 16px;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
+
 .code-copy-btn:hover {
-    transform: scale(1.1);
-    opacity: 0.9;
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+.dark .markdown-content blockquote strong {
+  color: #86198f
+}
+
+.markdown-content blockquote {
+  quotes: none;
+  padding: 20px;
+  margin: 10px 0;
+  color: #86198f;
+  background-color: #f8fafc;
+  border-left: 5px solid #ccc;
+  border-right: 5px solid #ccc;
+}
+
+.dark .markdown-content blockquote strong {
+  color: #f5d0fe
+}
+
+.dark .markdown-content blockquote {
+  quotes: none;
+  padding: 20px;
+  margin: 10px 0;
+  color: #f5d0fe;
+  background-color: #222222;
+  border-left: 5px solid #ccc;
+  border-right: 5px solid #ccc;
+}
+
+.markdown-content img {
+  display: block;
+  margin: 0 auto;
+  /* this centers the image horizontally */
 }

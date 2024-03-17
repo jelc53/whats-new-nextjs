@@ -40,9 +40,7 @@ Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment)
 
 ## Backlog
 
-- [high] Create and test markdown sketch template (Leqi & Quinn)
-  
-- [high] Add math and code styling to `react-markdown` translation layer  
+- [med] Table of contents side panel alongside each post page
   
 - [med] Limited "featured" section to 4-8 most recent sketches, regardless of number of catalogue entries
    

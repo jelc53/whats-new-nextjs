@@ -23,7 +23,7 @@ Here is a function,
 $$
 f(x)=
 \begin{cases}
-1/d_{ij} & \quad \text{when $d_{ij} \leq 160$}\\ 
+1/d_{ij} & \quad \text{when $d_{ij} \leq 160$}\\\\
 0 & \quad \text{otherwise}
 \end{cases}
 $$
@@ -32,11 +32,11 @@ Here is a matrix,
 $$ 
 M =
 \begin{bmatrix}
-1 & 0 \\
+1 & 0 \\\\
 0 & 1
 \end{bmatrix}
 \begin{bmatrix}
-1 & 0 \\
+1 & 0 \\\\
 0 & 1
 \end{bmatrix}
 $$

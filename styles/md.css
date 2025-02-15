@@ -49,24 +49,29 @@
   opacity: 0.9;
 }
 
+.dark .markdown-content blockquote strong {
+  color: #86198f
+}
+
 .markdown-content blockquote {
   quotes: none;
   padding: 20px;
   margin: 10px 0;
+  color: #86198f;
   background-color: #f8fafc;
   border-left: 5px solid #ccc;
   border-right: 5px solid #ccc;
 }
 
 .dark .markdown-content blockquote strong {
-  color: rgb(240, 200, 246)
+  color: #f5d0fe
 }
 
 .dark .markdown-content blockquote {
   quotes: none;
   padding: 20px;
   margin: 10px 0;
-  color: rgb(240, 200, 246);
+  color: #f5d0fe;
   background-color: #222222;
   border-left: 5px solid #ccc;
   border-right: 5px solid #ccc;

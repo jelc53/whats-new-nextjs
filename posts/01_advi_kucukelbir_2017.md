@@ -7,7 +7,7 @@ articleAuthor: Alp Kucukelbir
 articlePublishDate: "2017-01-01"
 category: Statistics
 bannerImage: /imgs/vi_banner_image_2.jpg
-description: "Variational Inference is used to approximate joint posterior distributions. This sketch summarizes the method, its pros and cons, and existing   implementations."
+description: "Variational Inference is used to approximate joint posterior distributions. This sketch summarizes the method, its advantages and disadvantages, and demos existing   implementations."
 ---
 
 |     |     |

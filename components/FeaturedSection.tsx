@@ -11,6 +11,7 @@ const FeaturedSection = () => {
       key={post.slug} 
       sketchTitle={post.sketchTitle}
       sketchAuthor={post.sketchAuthor}
+      sketchReviewer={post.sketchReviewer}
       sketchPublishDate={post.sketchPublishDate}
       articleTitle={post.articleTitle}
       articleAuthor={post.articleAuthor}

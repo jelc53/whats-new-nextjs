@@ -1,10 +1,11 @@
 ---
 sketchTitle: Shortened Example Sketch Title 1
-sketchAuthor: Julian Cooper, 14th Sept. 2023
-sketchPublishDate: "2023-09-13"
+sketchAuthor: Julian Cooper
+sketchReviewer: Leqi Zeng
+sketchPublishDate: "Sept 2023"
 articleTitle: Example Article With Reasonably Long Title 1
 articleAuthor: Martin Kleppmann & Kleppmann
-articlePublishDate: "2017-01-01"
+articlePublishDate: "Jan 2017"
 category: Convex Optimization
 bannerImage: /imgs/neuromancer_headset.png
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."

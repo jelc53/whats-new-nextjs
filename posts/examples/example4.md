@@ -1,10 +1,11 @@
 ---
 sketchTitle: Shortened Example Sketch Title 4
-sketchAuthor: "Axel Peytavin, 17th Sept. 2023"
-sketchPublishDate: "2023-09-17"
+sketchAuthor: Axel Peytavin
+sketchReviewer: Julian Cooper
+sketchPublishDate: "Sept 2023"
 articleTitle: Example Article With Reasonably Long Title 4
 articleAuthor: Martin Kleppmann & Martin Kleppmann
-articlePublishDate: "2017-01-04"
+articlePublishDate: "April 2017"
 category: Deep Learning
 bannerImage: /imgs/neuromancer_headset.png
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."

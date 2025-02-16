@@ -6,14 +6,14 @@ articleTitle: Switching from Relational Databases to ArangoDB
 articleAuthor: Claudius Weinberger
 articlePublishDate: "2022-03-01"
 category: Software Engineering
-bannerImage: /imgs/psql_traversal_algorithms.jpg
+bannerImage: /imgs/psql_traversal_algorithms.png
 description: "Graph databases like ArangoDB and Neo4j are increasingly popular, but how do they differ from a relational database with two tables: nodes and edges?"
 ---
 
 |     |     |
 | --- | --- |  
 | **Title** | **Switching from Relational Databases to ArangoDB** |  
-| Author(s) | Claudius Weinberger & Frank Celler |  
+| Author(s) | Claudiuassumes Weinberger & Frank Celler |  
 | Date published | March, 2022 |  
 |     |     |   
 
@@ -22,11 +22,11 @@ description: "Graph databases like ArangoDB and Neo4j are increasingly popular, 
 
 Graph databases have exploded in popularity over the last decade due to the increase in highly-connected datasets, such as social networks, recommender systems, and knowledge graphs. 
 
-- **Relational databases like PostgreSQL** (introduced 1986) can be adapted to represent graphs. In general these are lighter weight and more flexible, but rely on slow recursive JOIN operations for traversal queries.[[3]] 
+- **Relational databases like PostgreSQL** (introduced 1986) can be adapted to represent graphs. In general these are lighter weight and more flexible, but rely on slow recursive JOIN operations for traversal queries.[[3]](#reference-documentation) 
 
-- **Multi-model databses like ArangoDB** (introduced 2014) offer a combination of document, key-value, and graph data models in one system.[[1]]
+- **Multi-model databses like ArangoDB** (introduced 2014) offer a combination of document, key-value, and graph data models in one system.[[1]](#reference-documentation)
   
-- **Native graph databases like Neo4j** (introduced 2007) are purpose-built to minimize compute required for large graph traversals.[[2]]
+- **Native graph databases like Neo4j** (introduced 2007) are purpose-built to minimize compute required for large graph traversals.[[2]](#reference-documentation)
 
 This sketch compares the three graph database paradigm, examining their storage models and query execution. 
 
@@ -151,7 +151,7 @@ For PostgreSQL, our nested `JOIN` operations still cost $O(N^2)$ per hop so we g
 
 Simon Riggs is responsible for many of the enterprise features we find in PostgreSQL today, including point-in-time recovery, hot standby, and sychronous replication.
 
-The following are two enhancements to the PostgreSQL graph traversal queries.[[3]]
+The following are two enhancements to the PostgreSQL graph traversal queries.[[3]](#reference-documentation)
 
 - **Indexing foreign keys** to speed up lookups. This improves the performance of our join operation and in doing so reduces our single-hop complexity from $O(N^2)$ to $O(N \log N)$!
   
@@ -172,6 +172,8 @@ The following are two enhancements to the PostgreSQL graph traversal queries.[[3
     )
     SELECT * FROM graph_traversal;
   ```
+
+The indexing idea is a no-brainer, so let's assume we go ahead and implement that for PostgreSQL implementation. 
 
 
 ### So ... which should I use?

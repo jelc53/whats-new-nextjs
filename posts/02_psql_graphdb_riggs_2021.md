@@ -1,7 +1,7 @@
 ---
 sketchTitle: PostgreSQL, ArangoDB & Neo4j for Graph Databases
 sketchAuthor: "Julian Cooper"
-skecthReviewer: "Tomas Bosschieter"
+sketchReviewer: "Tomas Bosschieter"
 sketchPublishDate: "Dec 2024"
 articleTitle: Switching from Relational Databases to ArangoDB
 articleAuthor: Claudius Weinberger

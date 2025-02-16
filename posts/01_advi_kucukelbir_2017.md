@@ -1,7 +1,7 @@
 ---
 sketchTitle: Auto-Differentiation Variational Inference
 sketchAuthor: "Julian Cooper"
-skecthReviewer: "Tomas Bosschieter"
+sketchReviewer: "Tomas Bosschieter"
 sketchPublishDate: "Oct 2023"
 articleTitle: Automatic Differentiation Variational Inference
 articleAuthor: Alp Kucukelbir

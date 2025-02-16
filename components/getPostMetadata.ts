@@ -17,6 +17,7 @@ const getPostMetadata = (): PostMetadata[] => {
         uid: index,
         sketchTitle: matterResult.data.sketchTitle,
         sketchAuthor: matterResult.data.sketchAuthor,
+        sketchReviewer: matterResult.data.sketchReviewer,
         sketchPublishDate: matterResult.data.sketchPublishDate,
         articleTitle: matterResult.data.articleTitle,
         articleAuthor: matterResult.data.articleAuthor,

@@ -40,7 +40,8 @@ const SketchPage = (props: any) => {
               className="rounded-lg"
             />
             <h1 className="pt-6 pb-2 text-xl md:text-2xl lg:text-3xl lg:pt-10 text-extrabold text-fuchsia-800 dark:text-fuchsia-300">{post.data.sketchTitle}</h1>
-            <p className="pb-6 text-lg text-stone-400 dark:text-stone-300 md:text-xl lg:text-2xl">{post.data.sketchAuthor}</p>
+            <p className="pb-2 text-lg text-stone-400 dark:text-stone-300 md:text-xl lg:text-2xl">{post.data.sketchAuthor}, {post.data.sketchPublishDate}</p>
+            <p className="pb-6 text-lg text-stone-400 dark:text-stone-300 md:text-xl lg:text-2xl">Reviewed by: {post.data.sketchReviewer}</p>
         </div>
         
         <article className="w-full pb-10 prose lg:pb-16 md:prose-lg lg:prose-xl">

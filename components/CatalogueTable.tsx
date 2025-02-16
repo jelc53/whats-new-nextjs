@@ -67,10 +67,10 @@ export default function CatalogueTable({ data }: {data : any[]}) {
                             </th>
                             <th 
                                 className="px-4 py-2 border-b border-gray-200"
-                                onClick={() => handleSort('articlePublishDate')}
+                                onClick={() => handleSort('sketchPublishDate')}
                             >
                                 Date
-                                {sortField === 'articlePublishDate' && (sortDirection === 'desc' ? '▼' : '▲')}
+                                {sortField === 'sketchPublishDate' && (sortDirection === 'desc' ? '▼' : '▲')}
                             </th>
                             <th 
                                 className="px-4 py-2 border-b border-gray-200"
@@ -100,21 +100,29 @@ export default function CatalogueTable({ data }: {data : any[]}) {
                                 Written by
                                 {sortField === 'sketchAuthor' && (sortDirection === 'desc' ? '▼' : '▲')}
                             </th>
+                            <th 
+                                className="px-4 py-2 border-b border-gray-200"
+                                onClick={() => handleSort('sketchReviewer')}
+                            >
+                                Reviewed by
+                                {sortField === 'sketchReviewer' && (sortDirection === 'desc' ? '▼' : '▲')}
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="">
                         {filteredAndSortedData.map(item => (
                             <tr key={item.uid}>
                                 <td className="px-4 break-words min-w-[50px] py-2 border-b border-gray-200">{item.uid}</td>
-                                <td className="px-4 py-2 break-words min-w-[80px] border-b border-gray-200">{item.articlePublishDate}</td>
+                                <td className="px-4 py-2 break-words min-w-[80px] border-b border-gray-200">{item.sketchPublishDate}</td>
                                 <td className="px-4 break-words min-w-[300px] hover:dark:text-fuchsia-100 hover:text-fuchsia-400 py-2 border-b border-gray-200">
                                     <Link href={`/posts/${item.slug}`}>
-                                        {item.articleTitle}
+                                        {item.sketchTitle}
                                     </Link>
                                 </td>
                                 <td className="px-4 py-2 break-words min-w-[150px] border-b border-gray-200">{item.category}</td>
                                 <td className="px-4 py-2 break-words min-w-[200px] border-b border-gray-200">{item.articleAuthor}</td>
                                 <td className="px-4 py-2 break-words min-w-[200px] border-b border-gray-200">{item.sketchAuthor}</td>
+                                <td className="px-4 py-2 break-words min-w-[200px] border-b border-gray-200">{item.sketchReviewer}</td>
                             </tr>
                         ))}
                     </tbody>

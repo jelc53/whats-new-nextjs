@@ -1,10 +1,11 @@
 ---
 sketchTitle: PostgreSQL, ArangoDB & Neo4j for Graph Databases
-sketchAuthor: "Julian Cooper, 30th Dec. 2024"
-sketchPublishDate: "2024-12-30"
+sketchAuthor: "Julian Cooper"
+sketchReviewer: "Tomas Bosschieter"
+sketchPublishDate: "Dec 2024"
 articleTitle: Switching from Relational Databases to ArangoDB
 articleAuthor: Claudius Weinberger
-articlePublishDate: "2022-03-01"
+articlePublishDate: "March 2022"
 category: Software Engineering
 bannerImage: /imgs/psql_traversal_algorithms.png
 description: "Graph databases like ArangoDB and Neo4j are increasingly popular, but how do they differ from a relational database with two tables: nodes and edges?"

@@ -1,10 +1,11 @@
 ---
 sketchTitle: Shortened Example Sketch Title 2
-sketchAuthor: "Leqi Zeng, 15th Sept. 2023"
-sketchPublishDate: "2023-09-15"
+sketchAuthor: "Leqi Zeng"
+sketchReviewer: "Quinn Hollister"
+sketchPublishDate: "Sept 2023"
 articleTitle: Example Article With Reasonably Long Title 2
 articleAuthor: Martin Kleppmann & Martin Kleppmann
-articlePublishDate: "2017-01-02"
+articlePublishDate: "Jan 2017"
 category: Deep Learning
 bannerImage: /imgs/neuromancer_headset.png
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."

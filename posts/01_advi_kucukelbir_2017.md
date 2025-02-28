@@ -1,13 +1,14 @@
 ---
 sketchTitle: Auto-Differentiation Variational Inference
-sketchAuthor: "Julian Cooper, 30th Oct. 2023"
-sketchPublishDate: "2023-09-15"
+sketchAuthor: "Julian Cooper"
+sketchReviewer: "Tomas Bosschieter"
+sketchPublishDate: "Oct 2023"
 articleTitle: Automatic Differentiation Variational Inference
 articleAuthor: Alp Kucukelbir
-articlePublishDate: "2017-01-01"
+articlePublishDate: "Jan 2017"
 category: Statistics
 bannerImage: /imgs/vi_banner_image_2.jpg
-description: "Variational Inference is used to approximate joint posterior distributions. This sketch summarizes the method, its pros and cons, and existing   implementations."
+description: "Variational Inference is used to approximate joint posterior distributions. This sketch summarizes the method, its advantages and disadvantages, and demos existing   implementations."
 ---
 
 |     |     |

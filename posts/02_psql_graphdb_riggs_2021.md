@@ -14,7 +14,7 @@ description: "Graph databases like ArangoDB and Neo4j are increasingly popular, 
 |     |     |
 | --- | --- |  
 | **Title** | **Switching from Relational Databases to ArangoDB** |  
-| Author(s) | Claudiuassumes Weinberger & Frank Celler |  
+| Author(s) | Claudius Weinberger & Frank Celler |  
 | Date published | March, 2022 |  
 |     |     |   
 
